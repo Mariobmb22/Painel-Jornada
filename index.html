@@ -1,0 +1,5462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jornada de Trabalho | Diretoria</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root{
+    --petroleum:#003D58;
+    --accent:#15D2FF;
+    --white:#FFFFFF;
+    --bg:#F4F6F8;
+    --panel:#FFFFFF;
+    --border:#E2E8EC;
+    --border-soft:#EDF1F3;
+    --text:#152C38;
+    --text-2:#405761;
+    --muted:#73858D;
+    --muted-2:#98A6AC;
+
+    --green:#27A865;
+    --green-dark:#187B49;
+    --green-bg:#EAF8F0;
+
+    --amber:#F0A31A;
+    --amber-dark:#956000;
+    --amber-bg:#FFF6E2;
+
+    --red:#E5484D;
+    --red-dark:#BC3035;
+    --red-bg:#FFF0F1;
+
+    --shadow:
+        0 1px 2px rgba(16,42,54,.025),
+        0 5px 18px rgba(16,42,54,.045);
+
+    --shadow-hover:
+        0 2px 4px rgba(16,42,54,.03),
+        0 9px 24px rgba(16,42,54,.065);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    min-height:100%;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Montserrat",Arial,sans-serif;
+    font-size:15px;
+    -webkit-font-smoothing:antialiased;
+}
+
+button,
+input,
+select{
+    font-family:"Montserrat",Arial,sans-serif;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.topbar{
+    min-height:68px;
+    padding:0 26px;
+    background:var(--petroleum);
+    color:#fff;
+    display:flex;
+    align-items:stretch;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 3px 12px rgba(0,61,88,.12);
+}
+
+.brand{
+    min-width:230px;
+    padding-right:25px;
+    display:flex;
+    align-items:center;
+    white-space:nowrap;
+}
+
+.brand strong{
+    font-family:"Poppins",sans-serif;
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:-.25px;
+    color:#fff;
+}
+
+.menu{
+    display:flex;
+    align-items:stretch;
+    margin-left:7px;
+}
+
+.menu-item{
+    position:relative;
+    padding:0 17px;
+    border:0;
+    background:transparent;
+    color:rgba(255,255,255,.75);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.18s;
+}
+
+.menu-item:hover{
+    background:rgba(255,255,255,.045);
+    color:#fff;
+}
+
+.menu-item.active{
+    color:#fff;
+    background:rgba(255,255,255,.035);
+}
+
+.menu-item.active::after{
+    content:"";
+    position:absolute;
+    left:17px;
+    right:17px;
+    bottom:0;
+    height:3px;
+    border-radius:3px 3px 0 0;
+    background:var(--accent);
+}
+
+.topbar-spacer{
+    flex:1;
+}
+
+.header-controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding-left:16px;
+}
+
+.header-filter{
+    height:40px;
+    display:flex;
+    align-items:center;
+    border:1px solid #DCE5E9;
+    border-radius:22px;
+    background:#fff;
+    overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+
+.header-filter-label{
+    padding-left:13px;
+    color:#73858D;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+}
+
+.header-period{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:0 8px;
+}
+
+.header-period input{
+    width:116px;
+    height:29px;
+    padding:0 5px;
+    border:0;
+    outline:0;
+    background:#fff;
+    color:var(--text);
+    font-size:10px;
+    font-weight:600;
+    color-scheme:light;
+}
+
+.header-period span{
+    color:#A0ADB3;
+    font-size:10px;
+}
+
+.header-company select{
+    width:170px;
+    height:38px;
+    padding:0 28px 0 9px;
+    border:0;
+    outline:0;
+    background:#fff;
+    color:var(--text);
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.aquila-logo-wrap{
+    height:38px;
+    margin-left:8px;
+    padding-left:17px;
+    display:flex;
+    align-items:center;
+}
+
+.aquila-logo{
+    display:block;
+    width:auto;
+    height:27px;
+    object-fit:contain;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page{
+    max-width:1500px;
+    margin:0 auto;
+    padding:28px 30px 48px;
+}
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+.page-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:25px;
+    margin-bottom:23px;
+}
+
+.kicker{
+    display:block;
+    margin-bottom:7px;
+    color:var(--petroleum);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+h1{
+    margin:0;
+    color:var(--text);
+    font-size:29px;
+    line-height:1.15;
+    font-weight:700;
+    letter-spacing:-.6px;
+}
+
+.page-description{
+    margin:8px 0 0;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
+}
+
+.demo{
+    padding:7px 12px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:#fff;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:20px;
+    margin-bottom:23px;
+}
+
+.card{
+    position:relative;
+    min-height:148px;
+    padding:20px 21px 18px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    transition:.18s;
+}
+
+.card:hover{
+    transform:translateY(-1px);
+    box-shadow:var(--shadow-hover);
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:4px;
+    background:var(--petroleum);
+}
+
+.card.petroleum::before{background:var(--petroleum);}
+.card.red::before{background:var(--red);}
+.card.yellow::before{background:var(--amber);}
+.card.green::before{background:var(--green);}
+
+.card-title{
+    color:var(--muted);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.6px;
+    line-height:1.4;
+    text-transform:uppercase;
+}
+
+.card-value{
+    margin-top:15px;
+    color:var(--text);
+    font-size:31px;
+    line-height:1;
+    font-weight:700;
+    letter-spacing:-.9px;
+}
+
+.card-caption{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.4;
+}
+
+.card-secondary{
+    margin-top:10px;
+    color:var(--text-2);
+    font-size:12px;
+    font-weight:700;
+}
+
+.card-divider{
+    height:1px;
+    margin:13px 0 10px;
+    background:var(--border-soft);
+}
+
+.metric-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:7px;
+}
+
+.metric-row span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.metric-row strong{
+    color:var(--text);
+    font-size:11px;
+    font-weight:700;
+}
+
+.metric-row strong.green{color:var(--green-dark);}
+.metric-row strong.yellow{color:var(--amber-dark);}
+.metric-row strong.red{color:var(--red-dark);}
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.panel{
+    margin-bottom:21px;
+    padding:21px 22px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+}
+
+.drill-panel{
+    display:none;
+}
+
+.drill-panel.visible{
+    display:block;
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    margin-bottom:18px;
+}
+
+.panel-kicker{
+    color:var(--petroleum);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1.15px;
+    text-transform:uppercase;
+}
+
+.panel-title{
+    margin:5px 0 0;
+    color:var(--text);
+    font-size:16px;
+    font-weight:700;
+}
+
+.panel-subtitle{
+    margin:6px 0 0;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.5;
+}
+
+.chart-area{
+    position:relative;
+    height:310px;
+}
+
+/* =========================================================
+   TOGGLES
+========================================================= */
+
+.toggle{
+    display:flex;
+    gap:2px;
+    padding:3px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:#F2F5F6;
+}
+
+.toggle button{
+    height:30px;
+    min-width:72px;
+    padding:0 14px;
+    border:0;
+    border-radius:16px;
+    background:transparent;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.toggle button.active{
+    background:var(--petroleum);
+    color:#fff;
+}
+
+.toggle button:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+}
+
+.scope-toggle button{
+    min-width:auto;
+    padding:0 15px;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrap{
+    width:100%;
+    overflow:auto;
+    border-radius:8px;
+}
+
+.employee-scroll{
+    max-height:430px;
+    overflow:auto;
+    border:1px solid var(--border-soft);
+    border-radius:9px;
+}
+
+.employee-scroll thead th{
+    position:sticky;
+    top:0;
+    z-index:4;
+    background:#F7F9FA;
+    box-shadow:0 1px 0 var(--border);
+}
+
+table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+}
+
+thead th{
+    padding:11px 12px;
+    background:#F7F9FA;
+    border-top:1px solid var(--border-soft);
+    border-bottom:1px solid var(--border);
+    color:var(--muted);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-align:left;
+    text-transform:uppercase;
+    white-space:nowrap;
+}
+
+tbody td{
+    padding:14px 12px;
+    border-bottom:1px solid var(--border-soft);
+    color:var(--text-2);
+    font-size:11px;
+    white-space:nowrap;
+}
+
+tbody tr:hover td{
+    background:#FAFCFC;
+}
+
+.numeric{
+    text-align:right;
+}
+
+.strong{
+    color:var(--text);
+    font-weight:700;
+}
+
+.muted{
+    color:var(--muted-2);
+}
+
+.sortable-header{
+    cursor:pointer;
+    user-select:none;
+    transition:.15s;
+}
+
+.sortable-header:hover{
+    color:var(--petroleum);
+    background:#F1F6F8;
+}
+
+.sort-label{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+}
+
+.sort-arrow{
+    color:var(--petroleum);
+    font-size:9px;
+}
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.action{
+    min-height:29px;
+    padding:0 12px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:#fff;
+    color:var(--petroleum);
+    font-size:9px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.action:hover{
+    background:rgba(21,210,255,.06);
+    border-color:rgba(0,61,88,.25);
+}
+
+/* =========================================================
+   PARETO
+========================================================= */
+
+.pareto-layout{
+    display:grid;
+    grid-template-columns:minmax(0,1.7fr) minmax(270px,.65fr);
+    gap:25px;
+}
+
+.pareto-side{
+    padding-left:24px;
+    border-left:1px solid var(--border-soft);
+}
+
+.selected-context{
+    margin-bottom:17px;
+}
+
+.selected-context span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+}
+
+.selected-context strong{
+    display:block;
+    margin-top:6px;
+    color:var(--text);
+    font-size:17px;
+    font-weight:700;
+}
+
+.context-stat{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:13px 0;
+    border-bottom:1px solid var(--border-soft);
+}
+
+.context-stat span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.context-stat strong{
+    color:var(--text);
+    font-size:11px;
+    font-weight:700;
+    text-align:right;
+}
+
+/* =========================================================
+   EMPLOYEE TOOLBAR
+========================================================= */
+
+.employee-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:14px;
+    flex-wrap:wrap;
+}
+
+.employee-toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+input[type="search"]{
+    width:300px;
+    height:37px;
+    padding:0 14px;
+    border:1px solid var(--border);
+    border-radius:19px;
+    outline:0;
+    background:#fff;
+    color:var(--text);
+    font-size:10px;
+}
+
+input[type="search"]:focus{
+    border-color:rgba(0,61,88,.35);
+    box-shadow:0 0 0 3px rgba(21,210,255,.08);
+}
+
+.result-info{
+    color:var(--muted);
+    font-size:10px;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:70px;
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.status.green{
+    color:var(--green-dark);
+    background:var(--green-bg);
+}
+
+.status.yellow{
+    color:var(--amber-dark);
+    background:var(--amber-bg);
+}
+
+.status.red{
+    color:var(--red-dark);
+    background:var(--red-bg);
+}
+
+.type{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:43px;
+    padding:5px 9px;
+    border-radius:14px;
+    font-size:9px;
+    font-weight:700;
+}
+
+.type.less{
+    color:var(--red-dark);
+    background:var(--red-bg);
+}
+
+.type.more{
+    color:var(--amber-dark);
+    background:var(--amber-bg);
+}
+
+/* =========================================================
+   DRAWER
+========================================================= */
+
+.drawer-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:99;
+    background:rgba(0,35,49,.26);
+    backdrop-filter:blur(1px);
+    opacity:0;
+    pointer-events:none;
+    transition:.2s;
+}
+
+.drawer-backdrop.open{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.drawer{
+    position:fixed;
+    top:0;
+    right:0;
+    z-index:100;
+    width:590px;
+    max-width:95vw;
+    height:100vh;
+    background:#fff;
+    border-left:1px solid var(--border);
+    box-shadow:-15px 0 40px rgba(0,35,49,.10);
+    transform:translateX(100%);
+    transition:.25s ease;
+}
+
+.drawer.open{
+    transform:translateX(0);
+}
+
+.drawer-header{
+    min-height:96px;
+    padding:22px 24px;
+    background:var(--petroleum);
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.drawer-header span{
+    color:rgba(255,255,255,.63);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1.1px;
+}
+
+.drawer-header h2{
+    margin:6px 0 0;
+    color:#fff;
+    font-size:20px;
+    font-weight:700;
+}
+
+.drawer-close{
+    width:34px;
+    height:34px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.drawer-body{
+    padding:22px 24px;
+    max-height:calc(100vh - 96px);
+    overflow:auto;
+}
+
+.drawer-summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:11px;
+    margin-bottom:22px;
+}
+
+.drawer-stat{
+    padding:13px;
+    background:#F7F9FA;
+    border:1px solid var(--border-soft);
+    border-radius:10px;
+}
+
+.drawer-stat span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.drawer-stat strong{
+    display:block;
+    margin-top:6px;
+    color:var(--text);
+    font-size:15px;
+}
+
+.history-title{
+    margin:0 0 11px;
+    color:var(--text);
+    font-size:12px;
+    font-weight:700;
+}
+
+canvas{
+    font-family:"Montserrat",Arial,sans-serif;
+}
+
+@media(max-width:1100px){
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .pareto-layout{
+        grid-template-columns:1fr;
+    }
+
+    .pareto-side{
+        padding:20px 0 0;
+        border-left:0;
+        border-top:1px solid var(--border-soft);
+    }
+}
+
+@media(max-width:850px){
+    .topbar{
+        overflow-x:auto;
+        padding:0 16px;
+    }
+
+    .topbar{
+        flex-wrap:wrap;
+    }
+
+    .header-controls{
+        width:100%;
+        padding:8px 0 10px;
+        flex-wrap:wrap;
+    }
+
+    .header-company,
+    .aquila-logo-wrap{
+        display:none;
+    }
+
+    .page{
+        padding:22px 18px 35px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .employee-toolbar{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .employee-toolbar-left{
+        width:100%;
+    }
+
+    input[type="search"]{
+        width:100%;
+    }
+}
+
+/* =========================================================
+   LOADING OVERLAY
+========================================================= */
+#loadingOverlay{
+    display:flex;
+    position:fixed;
+    inset:0;
+    background:rgba(0,61,88,.93);
+    z-index:9999;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    color:#fff;
+    font-family:"Montserrat",Arial,sans-serif;
+}
+#loadingSpinner{
+    width:52px;height:52px;
+    border:4px solid rgba(255,255,255,.2);
+    border-top-color:#15D2FF;
+    border-radius:50%;
+    animation:ldspin .85s linear infinite;
+}
+@keyframes ldspin{to{transform:rotate(360deg)}}
+#loadingText{font-size:16px;font-weight:600;letter-spacing:.3px;opacity:.9}
+#loadingError{
+    display:none;
+    color:#FFD580;
+    font-size:15px;
+    font-weight:500;
+    max-width:480px;
+    text-align:center;
+    padding:16px 24px;
+    line-height:1.6;
+    background:rgba(255,255,255,.07);
+    border-radius:10px;
+    border:1px solid rgba(255,213,128,.25);
+}
+
+</style>
+</head>
+
+<body>
+<div id="loadingOverlay">
+    <div id="loadingSpinner"></div>
+    <div id="loadingText">Carregando dados…</div>
+    <div id="loadingError"></div>
+</div>
+
+
+<header class="topbar">
+
+    <div class="brand">
+        <strong>Frigorífico Serradão</strong>
+    </div>
+
+    <nav class="menu">
+        <button class="menu-item active" data-screen="executive" onclick="navigate('executive')">Painel Executivo</button>
+        <button class="menu-item" data-screen="overtime" onclick="navigate('overtime')">Horas Extras</button>
+        <button class="menu-item" data-screen="interjourney" onclick="navigate('interjourney')">Interjornada</button>
+        <button class="menu-item" data-screen="lunch" onclick="navigate('lunch')">Horário de Almoço</button>
+    </nav>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="header-controls">
+
+        <div class="header-filter">
+            <span class="header-filter-label">Período</span>
+
+            <div class="header-period">
+                <input id="dateStart" type="date" value="2026-09-01">
+                <span>—</span>
+                <input id="dateEnd" type="date" value="2026-09-30">
+            </div>
+        </div>
+
+        <div class="header-filter header-company">
+            <span class="header-filter-label">Empresa</span>
+
+            <select id="companyFilter">
+                <option value="Consolidado">Consolidado</option>
+                <option value="Frigobet">Frigobet</option>
+                <option value="Frigovitta">Frigovitta</option>
+                <option value="Frigorífico Serradão">Frigorífico Serradão</option>
+            </select>
+        </div>
+
+        <div class="aquila-logo-wrap">
+            <img class="aquila-logo" src="Diretoria/logo-aquila.png" alt="Áquila" onerror="this.parentElement.style.display='none'">
+        </div>
+
+    </div>
+</header>
+
+<main class="page">
+
+<!-- ======================================================
+     PAINEL EXECUTIVO
+====================================================== -->
+
+<section id="screen-executive" class="screen active">
+
+    <section class="page-heading">
+        <div>
+            <span class="kicker">DIRETORIA · VISÃO EXECUTIVA</span>
+            <h1>Jornada de Trabalho</h1>
+            <p class="page-description">
+                Visão consolidada dos principais indicadores de jornada no período selecionado.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="cards">
+
+        <article id="executiveHECard" class="card petroleum">
+            <div class="card-title">Horas Extras Realizadas</div>
+            <div id="executiveHEValue" class="card-value">—</div>
+
+            <div id="executiveHENormalCaption" class="card-caption">
+                no período selecionado
+            </div>
+
+            <div id="executiveHETargetBlock" style="display:none">
+                <div class="card-divider"></div>
+
+                <div class="metric-row">
+                    <span>Meta em horas</span>
+                    <strong id="executiveHETarget">750 h</strong>
+                </div>
+
+                <div class="metric-row">
+                    <span>Desvio</span>
+                    <strong id="executiveHEDeviation">+170 h</strong>
+                </div>
+
+                <div id="executiveHERule" class="card-caption"></div>
+            </div>
+        </article>
+
+        <article class="card red">
+            <div class="card-title">HE Superior a 2h/dia</div>
+            <div id="execOver2hValue" class="card-value">—</div>
+            <div class="card-caption">colaboradores envolvidos</div>
+            <div id="execOver2hSecondary" class="card-secondary">— ocorrências</div>
+        </article>
+
+        <article class="card red">
+            <div class="card-title">Interjornada &lt;11h</div>
+            <div id="execInterEmployees" class="card-value">—</div>
+            <div class="card-caption">colaboradores envolvidos</div>
+            <div id="execInterOccurrences" class="card-secondary">— ocorrências</div>
+        </article>
+
+        <article class="card yellow">
+            <div class="card-title">Horário de Almoço</div>
+            <div id="execLunchEmployees" class="card-value">—</div>
+            <div class="card-caption">colaboradores envolvidos</div>
+            <div id="execLunchDetail" class="card-secondary">— &lt;1h · — &gt;1h</div>
+        </article>
+
+    </section>
+
+    <section class="panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">HORAS EXTRAS</div>
+                <h2 class="panel-title">Evolução mensal</h2>
+                <p id="heEvolutionSubtitle" class="panel-subtitle">
+                    Horas extras realizadas mês a mês
+                </p>
+            </div>
+
+
+        </header>
+
+        <div class="chart-area">
+            <canvas id="executiveHEChart"></canvas>
+        </div>
+    </section>
+
+    <section class="panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">INTERJORNADA</div>
+                <h2 class="panel-title">Evolução das ocorrências</h2>
+                <p class="panel-subtitle">
+                    Ocorrências de descanso inferior a 11 horas
+                </p>
+            </div>
+        </header>
+
+        <div class="chart-area">
+            <canvas id="executiveInterChart"></canvas>
+        </div>
+    </section>
+
+    <section class="panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">HORÁRIO DE ALMOÇO</div>
+                <h2 class="panel-title">Evolução das ocorrências</h2>
+                <p class="panel-subtitle">
+                    Comparação mensal entre intervalos inferiores e superiores a 1 hora
+                </p>
+            </div>
+        </header>
+
+        <div class="chart-area">
+            <canvas id="executiveLunchChart"></canvas>
+        </div>
+    </section>
+
+</section>
+
+<!-- ======================================================
+     HORAS EXTRAS
+====================================================== -->
+
+<section id="screen-overtime" class="screen">
+
+    <section class="page-heading">
+        <div>
+            <span class="kicker">DIRETORIA · HORAS EXTRAS</span>
+            <h1>Horas Extras</h1>
+            <p class="page-description">
+                Onde está concentrado o consumo de horas extras e quem explica o resultado?
+            </p>
+            <p id="heMetasStatus" class="page-description" style="margin-top:4px"></p>
+        </div>
+
+    </section>
+
+    <section class="cards">
+        <article id="heScreenCard" class="card petroleum">
+            <div class="card-title">HE Realizadas</div>
+            <div id="heScreenRealized" class="card-value">—</div>
+            <div class="card-caption">no período selecionado</div>
+
+            <div id="heScreenTargetBlock" style="display:none">
+                <div class="card-divider"></div>
+                <div class="metric-row"><span>Meta geral</span><strong id="heScreenTarget">—</strong></div>
+                <div class="metric-row"><span>Desvio</span><strong id="heScreenDeviation">—</strong></div>
+                <div class="metric-row"><span>Atingimento</span><strong id="heScreenAttainment">—</strong></div>
+                <div id="heScreenRule" class="card-caption"></div>
+            </div>
+        </article>
+
+        <article class="card petroleum">
+            <div class="card-title">Colaboradores com HE</div>
+            <div id="executiveHEEmployees" class="card-value">—</div>
+            <div class="card-caption">colaboradores com ao menos 1 dia de HE</div>
+        </article>
+
+        <article class="card red">
+            <div class="card-title">HE Superior a 2h/dia</div>
+            <div id="executiveHEOver2hValue" class="card-value">—</div>
+            <div class="card-caption">colaboradores envolvidos</div>
+            <div id="executiveHEOver2hSecondary" class="card-secondary">— ocorrências</div>
+        </article>
+
+        <article class="card yellow">
+            <div class="card-title">Maior Concentração</div>
+            <div id="executiveMgmtTopValue" class="card-value" style="font-size:22px">—</div>
+            <div class="card-caption">gerência com maior consumo</div>
+            <div id="executiveMgmtTopShare" class="card-secondary">—% das HE</div>
+        </article>
+    </section>
+
+    <section class="panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 1 · GERÊNCIA</div>
+                <h2 class="panel-title">Horas Extras por Gerência</h2>
+                <p class="panel-subtitle">
+                    Comparação do consumo e do impacto financeiro entre as gerências
+                </p>
+            </div>
+        </header>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gerência</th>
+                        <th class="numeric">Meta HE</th>
+                        <th class="numeric">Realizado HE</th>
+                        <th class="numeric">Desvio HE</th>
+                        <th class="numeric">Atingimento</th>
+                        <th>Situação</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="heManagementTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="heLevel2" class="panel drill-panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 2 · SETOR</div>
+                <h2 class="panel-title">Pareto de Horas Extras por Setor</h2>
+                <p class="panel-subtitle">
+                    Concentração do consumo dentro da gerência selecionada
+                </p>
+            </div>
+
+            <div class="toggle">
+                <button id="heParetoRealized" class="active" onclick="setHEParetoMode('realized')">REALIZADO</button>
+                <button id="heParetoDeviation" onclick="setHEParetoMode('deviation')">DESVIO</button>
+            </div>
+        </header>
+
+        <div class="pareto-layout">
+            <div class="chart-area">
+                <canvas id="heParetoChart"></canvas>
+            </div>
+
+            <aside class="pareto-side">
+                <div class="selected-context">
+                    <span>Gerência selecionada</span>
+                    <strong id="heSelectedManagement">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>HE realizadas</span>
+                    <strong id="heSelectedHours">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Participação no total</span>
+                    <strong id="heSelectedShare">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Meta HE da gerência</span>
+                    <strong id="heSelectedTarget">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Desvio da gerência</span>
+                    <strong id="heSelectedDeviation">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Setor selecionado</span>
+                    <strong id="heSelectedSector">Clique no gráfico</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Meta HE do setor</span>
+                    <strong id="heSelectedSectorTarget">—</strong>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section id="heLevel3" class="panel drill-panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 3 · COLABORADOR</div>
+                <h2 class="panel-title">Colaboradores que Explicam o Consumo</h2>
+                <p id="heEmployeeSubtitle" class="panel-subtitle"></p>
+            </div>
+        </header>
+
+        <div class="employee-toolbar">
+            <div class="employee-toolbar-left">
+                <input id="heSearch" type="search" placeholder="Buscar colaborador...">
+
+                <div class="toggle scope-toggle">
+                    <button id="heScopeSector" class="active" onclick="setEmployeeScope('he','sector')">Setor selecionado</button>
+                    <button id="heScopeAll" onclick="setEmployeeScope('he','all')">Todos os colaboradores</button>
+                </div>
+            </div>
+
+            <span id="heResultInfo" class="result-info"></span>
+        </div>
+
+        <div class="table-wrap employee-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Colaborador</th>
+                        <th id="heSectorHeader" style="display:none">Setor</th>
+                        <th class="numeric sortable-header" onclick="toggleEmployeeSort('he')">
+                            <span class="sort-label">
+                                HE Realizadas
+                                <span id="heSortArrow" class="sort-arrow">▼</span>
+                            </span>
+                        </th>
+                        <th class="numeric">Dias com HE</th>
+                        <th class="numeric">Maior HE/dia</th>
+                        <th class="numeric">% das HE do Setor</th>
+                        <th>Histórico</th>
+                    </tr>
+                </thead>
+                <tbody id="heEmployeeTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+</section>
+<!-- ======================================================
+     INTERJORNADA
+====================================================== -->
+
+<section id="screen-interjourney" class="screen">
+
+    <section class="page-heading">
+        <div>
+            <span class="kicker">DIRETORIA · INTERJORNADA</span>
+            <h1>Descanso entre Jornadas</h1>
+            <p class="page-description">
+                Onde estão concentradas as ocorrências de descanso inferior a 11 horas e quem está reincidindo?
+            </p>
+        </div>
+
+    </section>
+
+    <section class="cards">
+        <article class="card red">
+            <div class="card-title">Ocorrências de Interjornada &lt;11h</div>
+            <div id="interCardOcc" class="card-value">—</div>
+            <div class="card-caption">ocorrências registradas no período</div>
+        </article>
+
+        <article class="card red">
+            <div class="card-title">Colaboradores Envolvidos</div>
+            <div id="interCardEmp" class="card-value">—</div>
+            <div class="card-caption">colaboradores distintos</div>
+        </article>
+
+        <article class="card petroleum">
+            <div class="card-title">Dias com Ocorrência</div>
+            <div id="interCardDays" class="card-value">—</div>
+            <div class="card-caption">dias distintos no período</div>
+        </article>
+
+        <article class="card yellow">
+            <div class="card-title">Menor Descanso Registrado</div>
+            <div id="interCardMin" class="card-value">—</div>
+            <div class="card-caption">menor intervalo observado</div>
+        </article>
+    </section>
+
+    <section class="panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 1 · GERÊNCIA</div>
+                <h2 class="panel-title">Ocorrências por Gerência</h2>
+                <p class="panel-subtitle">
+                    Distribuição das ocorrências de interjornada inferior a 11 horas
+                </p>
+            </div>
+        </header>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gerência</th>
+                        <th class="numeric">Colaboradores envolvidos</th>
+                        <th class="numeric">Total de ocorrências</th>
+                        <th class="numeric">Menor descanso</th>
+                        <th class="numeric">% do total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="interManagementTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="interLevel2" class="panel drill-panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 2 · SETOR</div>
+                <h2 class="panel-title">Pareto de Ocorrências por Setor</h2>
+                <p class="panel-subtitle">
+                    Concentração das ocorrências dentro da gerência selecionada
+                </p>
+            </div>
+        </header>
+
+        <div class="pareto-layout">
+            <div class="chart-area">
+                <canvas id="interParetoChart"></canvas>
+            </div>
+
+            <aside class="pareto-side">
+                <div class="selected-context">
+                    <span>Gerência selecionada</span>
+                    <strong id="interSelectedManagement">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Ocorrências</span>
+                    <strong id="interSelectedOccurrences">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Participação no total</span>
+                    <strong id="interSelectedShare">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Setor selecionado</span>
+                    <strong id="interSelectedSector">Clique no gráfico</strong>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section id="interLevel3" class="panel drill-panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 3 · COLABORADOR</div>
+                <h2 class="panel-title">Colaboradores com Ocorrências</h2>
+                <p id="interEmployeeSubtitle" class="panel-subtitle"></p>
+            </div>
+        </header>
+
+        <div class="employee-toolbar">
+            <div class="employee-toolbar-left">
+                <input id="interSearch" type="search" placeholder="Buscar colaborador...">
+
+                <div class="toggle scope-toggle">
+                    <button id="interScopeSector" class="active" onclick="setEmployeeScope('inter','sector')">Setor selecionado</button>
+                    <button id="interScopeAll" onclick="setEmployeeScope('inter','all')">Todos os colaboradores</button>
+                </div>
+            </div>
+
+            <span id="interResultInfo" class="result-info"></span>
+        </div>
+
+        <div class="table-wrap employee-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Colaborador</th>
+                        <th id="interSectorHeader" style="display:none">Setor</th>
+                        <th class="numeric sortable-header" onclick="toggleEmployeeSort('inter')">
+                            <span class="sort-label">
+                                Ocorrências
+                                <span id="interSortArrow" class="sort-arrow">▼</span>
+                            </span>
+                        </th>
+                        <th class="numeric">Dias distintos</th>
+                        <th class="numeric">Menor interjornada</th>
+                        <th>Última ocorrência</th>
+                        <th class="numeric">% do setor</th>
+                        <th>Histórico</th>
+                    </tr>
+                </thead>
+                <tbody id="interEmployeeTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+</section>
+
+<!-- ======================================================
+     HORÁRIO DE ALMOÇO
+====================================================== -->
+
+<section id="screen-lunch" class="screen">
+
+    <section class="page-heading">
+        <div>
+            <span class="kicker">DIRETORIA · HORÁRIO DE ALMOÇO</span>
+            <h1>Horário de Almoço</h1>
+            <p class="page-description">
+                Onde estão concentrados os desvios de intervalo e quais colaboradores explicam as ocorrências?
+            </p>
+        </div>
+
+    </section>
+
+    <section class="cards">
+        <article class="card petroleum">
+            <div class="card-title">Total de Ocorrências</div>
+            <div id="lunchCardTotal" class="card-value">—</div>
+            <div class="card-caption">ocorrências no período</div>
+        </article>
+
+        <article class="card petroleum">
+            <div class="card-title">Colaboradores Envolvidos</div>
+            <div id="lunchCardEmp" class="card-value">—</div>
+            <div class="card-caption">colaboradores distintos</div>
+        </article>
+
+        <article class="card red">
+            <div class="card-title">Intervalo Inferior a 1h</div>
+            <div id="lunchCardLess" class="card-value">—</div>
+            <div class="card-caption">ocorrências registradas</div>
+            <div id="lunchCardLessPct" class="card-secondary">—</div>
+        </article>
+
+        <article class="card yellow">
+            <div class="card-title">Intervalo Superior a 1h</div>
+            <div id="lunchCardMore" class="card-value">—</div>
+            <div class="card-caption">ocorrências registradas</div>
+            <div id="lunchCardMorePct" class="card-secondary">—</div>
+        </article>
+    </section>
+
+    <section class="panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 1 · GERÊNCIA</div>
+                <h2 class="panel-title">Ocorrências por Gerência</h2>
+                <p class="panel-subtitle">
+                    Distribuição dos intervalos inferiores e superiores a 1 hora
+                </p>
+            </div>
+        </header>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gerência</th>
+                        <th class="numeric">Colaboradores</th>
+                        <th class="numeric">&lt;1h</th>
+                        <th class="numeric">&gt;1h</th>
+                        <th class="numeric">Total</th>
+                        <th class="numeric">% do total</th>
+                        <th>Predominância</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="lunchManagementTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="lunchLevel2" class="panel drill-panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 2 · SETOR</div>
+                <h2 class="panel-title">Pareto de Ocorrências por Setor</h2>
+                <p id="lunchParetoSubtitle" class="panel-subtitle">
+                    Concentração do total de ocorrências dentro da gerência selecionada
+                </p>
+            </div>
+
+            <div class="toggle">
+                <button id="lunchTotalButton" class="active" onclick="setLunchParetoMode('total')">TOTAL</button>
+                <button id="lunchLessButton" onclick="setLunchParetoMode('less')">&lt;1H</button>
+                <button id="lunchMoreButton" onclick="setLunchParetoMode('more')">&gt;1H</button>
+            </div>
+        </header>
+
+        <div class="pareto-layout">
+            <div class="chart-area">
+                <canvas id="lunchParetoChart"></canvas>
+            </div>
+
+            <aside class="pareto-side">
+                <div class="selected-context">
+                    <span>Gerência selecionada</span>
+                    <strong id="lunchSelectedManagement">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Total</span>
+                    <strong id="lunchSelectedTotal">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Intervalo &lt;1h</span>
+                    <strong id="lunchSelectedLess">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Intervalo &gt;1h</span>
+                    <strong id="lunchSelectedMore">—</strong>
+                </div>
+
+                <div class="context-stat">
+                    <span>Setor selecionado</span>
+                    <strong id="lunchSelectedSector">Clique no gráfico</strong>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section id="lunchLevel3" class="panel drill-panel">
+        <header class="panel-header">
+            <div>
+                <div class="panel-kicker">NÍVEL 3 · COLABORADOR</div>
+                <h2 class="panel-title">Colaboradores com Ocorrências</h2>
+                <p id="lunchEmployeeSubtitle" class="panel-subtitle"></p>
+            </div>
+        </header>
+
+        <div class="employee-toolbar">
+            <div class="employee-toolbar-left">
+                <input id="lunchSearch" type="search" placeholder="Buscar colaborador...">
+
+                <div class="toggle scope-toggle">
+                    <button id="lunchScopeSector" class="active" onclick="setEmployeeScope('lunch','sector')">Setor selecionado</button>
+                    <button id="lunchScopeAll" onclick="setEmployeeScope('lunch','all')">Todos os colaboradores</button>
+                </div>
+            </div>
+
+            <span id="lunchResultInfo" class="result-info"></span>
+        </div>
+
+        <div class="table-wrap employee-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Colaborador</th>
+                        <th id="lunchSectorHeader" style="display:none">Setor</th>
+                        <th class="numeric">&lt;1h</th>
+                        <th class="numeric">&gt;1h</th>
+                        <th class="numeric sortable-header" onclick="toggleEmployeeSort('lunch')">
+                            <span class="sort-label">
+                                Total
+                                <span id="lunchSortArrow" class="sort-arrow">▼</span>
+                            </span>
+                        </th>
+                        <th class="numeric">Menor intervalo</th>
+                        <th class="numeric">Maior intervalo</th>
+                        <th>Histórico</th>
+                    </tr>
+                </thead>
+                <tbody id="lunchEmployeeTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+</section>
+
+</main>
+
+<div id="drawerBackdrop" class="drawer-backdrop" onclick="closeDrawer()"></div>
+
+<aside id="drawer" class="drawer">
+    <header class="drawer-header">
+        <div>
+            <span id="drawerKicker">HISTÓRICO</span>
+            <h2 id="drawerName">Colaborador</h2>
+        </div>
+
+        <button class="drawer-close" onclick="closeDrawer()">×</button>
+    </header>
+
+    <div class="drawer-body">
+        <div id="drawerSummary" class="drawer-summary"></div>
+
+        <h3 class="history-title">Histórico de ocorrências</h3>
+
+        <div class="table-wrap">
+            <table>
+                <thead id="drawerHead"></thead>
+                <tbody id="drawerTable"></tbody>
+            </table>
+        </div>
+    </div>
+</aside>
+
+<script>
+
+/* =========================================================
+   CHART DEFAULTS
+========================================================= */
+
+Chart.defaults.font.family = '"Montserrat", Arial, sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#73858D';
+
+const COLORS = {
+    petroleum:'#003D58',
+    accent:'#15D2FF',
+    red:'#E5484D',
+    amber:'#F0A31A',
+    green:'#27A865',
+    gray:'#98A6AC'
+};
+
+let MONTHS_DYNAMIC = [];
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentScreen = 'executive';
+let executiveHEMode = 'hours';
+
+let executiveHEChart = null;
+let executiveInterChart = null;
+let executiveLunchChart = null;
+
+let heParetoChart = null;
+let interParetoChart = null;
+let lunchParetoChart = null;
+
+let selectedHEManagement = null;
+let selectedHESector = null;
+let heParetoMode = 'realized';
+
+let selectedInterManagement = null;
+let selectedInterSector = null;
+
+let selectedLunchManagement = null;
+let selectedLunchSector = null;
+let lunchParetoMode = 'total';
+
+const employeeViewState = {
+    he:{scope:'sector',sort:'desc'},
+    inter:{scope:'sector',sort:'desc'},
+    lunch:{scope:'sector',sort:'desc'}
+};
+
+/* Estrutura defensiva — evita crashes em renderizações antes do carregamento */
+let DATA = {
+    executive:{
+        overtime:{ hours:[], money:[], frigobetTarget:[] },
+        interjourney:[], lunchLess:[], lunchMore:[]
+    },
+    overtime:{ managements:[], sectors:{}, employees:{} },
+    interjourney:{ managements:[], sectors:{}, employees:{} },
+    lunch:{ managements:[], sectors:{}, employees:{} },
+    _heEmployees:0, _heOver2hCount:0, _heOver2hOccurrences:0,
+    _totalHELastMn:0, _lastMnIdx:-1,
+    _interEmployees:0, _interOccurrences:0,
+    _lunchEmployees:0, _lunchLess:0, _lunchMore:0
+};
+
+/* Resultados brutos do gviz — mantidos para re-processar ao mudar o período */
+let BASES_RESULT = null;
+let METAS_RESULT = null;
+let METAS_ERROR = null;
+/* Mês selecionado (1-12) — null = usa o último mês disponível nos dados */
+let SELECTED_MONTH = null;
+
+/* =========================================================
+   CHART PLUGINS
+========================================================= */
+
+const valueLabelPlugin = {
+    id:'valueLabelPlugin',
+
+    afterDatasetsDraw(chart){
+
+        const ctx = chart.ctx;
+
+        chart.data.datasets.forEach((dataset,datasetIndex)=>{
+
+            if(dataset.hideDataLabels || dataset.type === 'line'){
+                return;
+            }
+
+            const meta = chart.getDatasetMeta(datasetIndex);
+
+            if(meta.hidden){
+                return;
+            }
+
+            meta.data.forEach((element,index)=>{
+
+                const value = dataset.data[index];
+
+                if(value === null || value === undefined){
+                    return;
+                }
+
+                ctx.save();
+                ctx.font = '600 10px Montserrat';
+                ctx.fillStyle = '#73858D';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+
+                let label = value;
+
+                if(dataset.money){
+                    label =
+                        'R$ ' +
+                        Number(value).toLocaleString(
+                            'pt-BR',
+                            {maximumFractionDigits:0}
+                        );
+                }
+
+                ctx.fillText(
+                    label,
+                    element.x,
+                    element.y-6
+                );
+
+                ctx.restore();
+            });
+        });
+    }
+};
+
+const cumulativeLabelPlugin = {
+    id:'cumulativeLabelPlugin',
+
+    afterDatasetsDraw(chart){
+
+        const ctx = chart.ctx;
+
+        chart.data.datasets.forEach((dataset,datasetIndex)=>{
+
+            if(!dataset.cumulativeLabels){
+                return;
+            }
+
+            const meta = chart.getDatasetMeta(datasetIndex);
+
+            if(meta.hidden){
+                return;
+            }
+
+            meta.data.forEach((point,index)=>{
+
+                const value = dataset.data[index];
+
+                if(value === null || value === undefined){
+                    return;
+                }
+
+                /* Percentual com um halo branco: legível sobre as colunas,
+                   sem caixa nem contorno colorido */
+                const text = formatDecimal(value)+'%';
+                ctx.save();
+                ctx.font = '700 10px Montserrat';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                let ty = point.y - 9;
+                if(ty - 12 < chart.chartArea.top) ty = point.y + 20;
+                ctx.lineJoin = 'round';
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = 'rgba(255,255,255,.95)';
+                ctx.strokeText(text, point.x, ty);
+                ctx.fillStyle = COLORS.petroleum;
+                ctx.fillText(text, point.x, ty);
+                ctx.restore();
+            });
+        });
+    }
+};
+
+
+/* =========================================================
+   ALTERAÇÃO 2 · RÓTULO NA LINHA DE META DA FRIGOBET
+
+   O rótulo é desenhado uma única vez, no final da linha.
+   Não altera os rótulos das barras nem outros gráficos.
+========================================================= */
+
+const heTargetLabelPlugin = {
+    id:'heTargetLabelPlugin',
+
+    afterDatasetsDraw(chart){
+
+        if(chart.canvas.id !== 'executiveHEChart'){
+            return;
+        }
+
+        const company =
+            document.getElementById('companyFilter').value;
+
+        if(executiveHEMode !== 'hours'){
+            return;
+        }
+
+        const datasetIndex =
+            chart.data.datasets.findIndex(
+                dataset => dataset.label === 'Meta'
+            );
+
+        if(datasetIndex === -1){
+            return;
+        }
+
+        const meta =
+            chart.getDatasetMeta(datasetIndex);
+
+        if(
+            !meta ||
+            meta.hidden ||
+            !meta.data ||
+            !meta.data.length
+        ){
+            return;
+        }
+
+        const point =
+            meta.data[meta.data.length-1];
+
+        const target =
+            DATA.executive.overtime.frigobetTarget[
+                DATA.executive.overtime.frigobetTarget.length-1
+            ];
+
+        const ctx = chart.ctx;
+
+        const label =
+            'Meta ' +
+            Number(target).toLocaleString('pt-BR') +
+            ' h';
+
+        ctx.save();
+
+        ctx.font =
+            '700 10px Montserrat';
+
+        const textWidth =
+            ctx.measureText(label).width;
+
+        const paddingX = 7;
+        const labelHeight = 20;
+
+        /* Posição do rótulo da meta: ao lado da barra (não em cima do
+           número dela) e do lado da linha que fica livre:
+           realizado acima da meta → rótulo abaixo da linha; senão, acima. */
+        const boxW = textWidth + (paddingX*2);
+        const barMeta = chart.getDatasetMeta(
+            chart.data.datasets.findIndex(d => d.type === 'bar'));
+        const bar = barMeta && barMeta.data ? barMeta.data[meta.data.length-1] : null;
+        const halfBar = bar && bar.width ? bar.width/2 : 16;
+        const realizedLast = chart.data.datasets[0].data[meta.data.length-1];
+
+        let x = point.x + halfBar + 6;
+        if(x + boxW > chart.chartArea.right){
+            x = point.x - halfBar - 6 - boxW;
+        }
+        if(x < chart.chartArea.left){
+            x = chart.chartArea.left + 4;
+        }
+
+        let y = (realizedLast !== null && realizedLast !== undefined && realizedLast >= target)
+            ? point.y + 6
+            : point.y - labelHeight - 6;
+
+        if(y < chart.chartArea.top){
+            y = point.y + 6;
+        }
+        if(y + labelHeight > chart.chartArea.bottom){
+            y = point.y - labelHeight - 6;
+        }
+
+        ctx.fillStyle =
+            'rgba(255,255,255,.96)';
+
+        ctx.strokeStyle =
+            '#DCE4E8';
+
+        ctx.lineWidth = 1;
+
+        ctx.beginPath();
+
+        if(typeof ctx.roundRect === 'function'){
+
+            ctx.roundRect(
+                x,
+                y,
+                textWidth + (paddingX*2),
+                labelHeight,
+                5
+            );
+
+        }else{
+
+            ctx.rect(
+                x,
+                y,
+                textWidth + (paddingX*2),
+                labelHeight
+            );
+        }
+
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle =
+            COLORS.gray;
+
+        ctx.textAlign =
+            'center';
+
+        ctx.textBaseline =
+            'middle';
+
+        ctx.fillText(
+            label,
+            x +
+            (
+                textWidth +
+                (paddingX*2)
+            )/2,
+            y + labelHeight/2
+        );
+
+        ctx.restore();
+    }
+};
+
+
+Chart.register(
+    valueLabelPlugin,
+    cumulativeLabelPlugin,
+    heTargetLabelPlugin
+);
+
+/* =========================================================
+   FORMATTERS
+========================================================= */
+
+function formatMoney(value){
+    return Number(value).toLocaleString(
+        'pt-BR',
+        {
+            style:'currency',
+            currency:'BRL',
+            maximumFractionDigits:0
+        }
+    );
+}
+
+function formatDecimal(value){
+    return Number(value).toLocaleString(
+        'pt-BR',
+        {
+            minimumFractionDigits:1,
+            maximumFractionDigits:1
+        }
+    );
+}
+
+function formatPercent(value){
+    return formatDecimal(value)+'%';
+}
+
+function targetStatus(realized,target){
+
+    if(target === null || target === undefined){
+        return null;
+    }
+
+    if(target === 0){
+        return realized > 0
+            ? {className:'red', label:'Acima da meta', color:COLORS.red, attainment:null}
+            : {className:'green', label:'Dentro da meta', color:COLORS.green, attainment:null};
+    }
+
+    const attainment = realized / target * 100;
+
+    if(attainment >= 100){
+        return {
+            className:'red',
+            label:'Acima da meta',
+            color:COLORS.red,
+            attainment
+        };
+    }
+
+    if(attainment >= 95){
+        return {
+            className:'yellow',
+            label:'Atenção',
+            color:COLORS.amber,
+            attainment
+        };
+    }
+
+    return {
+        className:'green',
+        label:'Dentro da meta',
+        color:COLORS.green,
+        attainment
+    };
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(screen){
+
+    currentScreen = screen;
+
+    document.querySelectorAll('.screen').forEach(
+        el=>el.classList.remove('active')
+    );
+
+    document
+        .getElementById('screen-'+screen)
+        .classList
+        .add('active');
+
+    document.querySelectorAll('.menu-item').forEach(el=>{
+        el.classList.toggle(
+            'active',
+            el.dataset.screen === screen
+        );
+    });
+
+    requestAnimationFrame(()=>{
+        if(screen === 'executive'){
+            renderExecutiveCharts();
+        }
+    });
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+}
+
+/* =========================================================
+   EXECUTIVE
+========================================================= */
+
+function updateExecutiveTarget(){
+
+    const company =
+        document.getElementById('companyFilter').value;
+
+    const targetBlock =
+        document.getElementById('executiveHETargetBlock');
+
+    const normalCaption =
+        document.getElementById('executiveHENormalCaption');
+
+    const card =
+        document.getElementById('executiveHECard');
+
+    card.classList.remove('green','yellow','red','petroleum');
+
+    /* Always show actual HE for selected month (Bug 1+2 fix) */
+    const realized = DATA._totalHELastMn || 0;
+    const heValEl  = document.getElementById('executiveHEValue');
+    if(heValEl) heValEl.textContent = realized + ' h';
+
+    document.getElementById('executiveHERule').textContent = DATA._metaRule || '';
+
+    /* Meta proporcional aos dias do período selecionado */
+    const target = DATA._periodTarget;
+
+    if(target === null || target === undefined || !target){
+        targetBlock.style.display = 'none';
+        normalCaption.style.display = 'block';
+        card.classList.add('petroleum');
+        return;
+    }
+
+    const deviation = realized - target;
+    const status = targetStatus(realized, target);
+
+    targetBlock.style.display = 'block';
+    normalCaption.style.display = 'none';
+
+    document.getElementById('executiveHETarget').textContent = target + ' h';
+
+    const deviationEl = document.getElementById('executiveHEDeviation');
+    deviationEl.textContent = (deviation > 0 ? '+' : '') + deviation + ' h';
+    deviationEl.className = status.className;
+
+    card.classList.add(status.className);
+}
+
+function setExecutiveHEMode(mode){
+
+    executiveHEMode = mode;
+
+    document
+        .getElementById('heHoursButton')
+        .classList
+        .toggle('active',mode === 'hours');
+
+    const moneyBtn = document.getElementById('heMoneyButton');
+    if(moneyBtn) moneyBtn.classList.toggle('active',mode === 'money');
+
+    renderExecutiveHEChart();
+}
+
+/* =========================================================
+   EVOLUÇÃO HE
+   ALTERAÇÃO 1 · LEGENDA SEMAFÓRICA PARA FRIGOBET
+   ALTERAÇÃO 2 · RÓTULO DA META VIA PLUGIN
+========================================================= */
+
+function renderExecutiveHEChart(){
+
+    const canvas =
+        document.getElementById('executiveHEChart');
+
+    if(executiveHEChart){
+        executiveHEChart.destroy();
+    }
+
+    const company =
+        document.getElementById('companyFilter').value;
+
+    const isMoney =
+        executiveHEMode === 'money';
+
+    const values =
+        (isMoney
+        ? DATA.executive.overtime.money
+        : DATA.executive.overtime.hours) || [];
+
+    /* Sem dados: mostra canvas vazio */
+    if(!values.length){ executiveHEChart = null; return; }
+
+    const hasTarget =
+        !isMoney &&
+        (DATA.executive.overtime.frigobetTarget || []).some(v => v !== null && v !== undefined);
+
+    let barColors = COLORS.petroleum;
+
+    if(hasTarget){
+
+        barColors = values.map((value,index)=>{
+
+            const status =
+                targetStatus(
+                    value,
+                    DATA.executive.overtime.frigobetTarget[index]
+                );
+
+            return status ? status.color : COLORS.petroleum;
+        });
+    }
+
+    const datasets = [
+        {
+            type:'bar',
+            label:isMoney ? 'Realizado R$' : 'Realizado',
+            data:values,
+            backgroundColor:barColors,
+            borderRadius:5,
+            borderSkipped:false,
+            barPercentage:.50,
+            categoryPercentage:.68,
+            money:isMoney,
+
+            /*
+             * No Chart.js, menor "order" é desenhado depois.
+             * Assim a linha de meta fica visualmente à frente.
+             */
+            order:2
+        }
+    ];
+
+    if(hasTarget){
+
+        datasets.push({
+            type:'line',
+            label:'Meta',
+            data:DATA.executive.overtime.frigobetTarget,
+            borderColor:COLORS.gray,
+            backgroundColor:COLORS.gray,
+            pointBackgroundColor:COLORS.gray,
+            pointBorderColor:'#fff',
+            pointBorderWidth:2,
+            pointRadius:3,
+            borderWidth:2,
+            borderDash:[6,5],
+            tension:0,
+            hideDataLabels:true,
+            order:1
+        });
+    }
+
+    document.getElementById('heEvolutionSubtitle').textContent =
+        isMoney
+        ? 'Valor financeiro realizado mês a mês'
+        : hasTarget
+            ? 'Horas realizadas versus meta mensal (mês em andamento: meta proporcional aos dias com dados)'
+            : 'Horas extras realizadas mês a mês';
+
+    executiveHEChart =
+        new Chart(
+            canvas.getContext('2d'),
+            {
+                data:{
+                    labels:MONTHS_DYNAMIC,
+                    datasets
+                },
+
+                options:{
+                    responsive:true,
+                    maintainAspectRatio:false,
+
+                    plugins:{
+                        legend:{
+                            /*
+                             * ALTERAÇÃO 1:
+                             * legenda semafórica exibida somente
+                             * no gráfico em horas da Frigobet.
+                             */
+                            display:hasTarget,
+                            position:'bottom',
+
+                            labels:{
+                                usePointStyle:true,
+                                boxWidth:8,
+                                boxHeight:8,
+                                padding:20,
+
+                                generateLabels:()=>{
+                                    return [
+                                        {
+                                            text:'Meta',
+                                            fillStyle:COLORS.gray,
+                                            strokeStyle:COLORS.gray,
+                                            lineWidth:2,
+                                            pointStyle:'line',
+                                            hidden:false
+                                        },
+                                        {
+                                            text:'Dentro da meta',
+                                            fillStyle:COLORS.green,
+                                            strokeStyle:COLORS.green,
+                                            lineWidth:0,
+                                            pointStyle:'circle',
+                                            hidden:false
+                                        },
+                                        {
+                                            text:'Atenção',
+                                            fillStyle:COLORS.amber,
+                                            strokeStyle:COLORS.amber,
+                                            lineWidth:0,
+                                            pointStyle:'circle',
+                                            hidden:false
+                                        },
+                                        {
+                                            text:'Acima da meta',
+                                            fillStyle:COLORS.red,
+                                            strokeStyle:COLORS.red,
+                                            lineWidth:0,
+                                            pointStyle:'circle',
+                                            hidden:false
+                                        }
+                                    ];
+                                }
+                            },
+
+                            /*
+                             * Legenda explicativa:
+                             * clicar não oculta os datasets.
+                             */
+                            onClick:()=>{}
+                        }
+                    },
+
+                    scales:{
+                        x:{
+                            grid:{display:false},
+                            border:{display:false}
+                        },
+
+                        y:{
+                            beginAtZero:true,
+                            grid:{display:false},
+                            border:{display:false},
+
+                            ticks:{
+                                callback:value=>{
+
+                                    if(isMoney){
+                                        return (
+                                            'R$ ' +
+                                            Number(value/1000).toLocaleString(
+                                                'pt-BR',
+                                                {maximumFractionDigits:0}
+                                            ) +
+                                            ' mil'
+                                        );
+                                    }
+
+                                    return value+' h';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+}
+
+/* =========================================================
+   EXECUTIVE · INTERJORNADA
+========================================================= */
+
+function renderExecutiveInterChart(){
+
+    if(executiveInterChart){
+        executiveInterChart.destroy();
+    }
+
+    executiveInterChart =
+        new Chart(
+            document.getElementById('executiveInterChart').getContext('2d'),
+            {
+                type:'line',
+
+                data:{
+                    labels:MONTHS_DYNAMIC,
+
+                    datasets:[
+                        {
+                            label:'Ocorrências',
+                            data:DATA.executive.interjourney,
+                            borderColor:COLORS.red,
+                            backgroundColor:'rgba(229,72,77,.08)',
+                            fill:true,
+                            pointBackgroundColor:COLORS.red,
+                            pointBorderColor:'#fff',
+                            pointBorderWidth:2,
+                            pointRadius:4,
+                            borderWidth:2,
+                            tension:.25,
+                            hideDataLabels:true
+                        }
+                    ]
+                },
+
+                options:{
+                    responsive:true,
+                    maintainAspectRatio:false,
+
+                    plugins:{
+                        legend:{display:false}
+                    },
+
+                    scales:{
+                        x:{
+                            grid:{display:false},
+                            border:{display:false}
+                        },
+
+                        y:{
+                            beginAtZero:true,
+                            grid:{display:false},
+                            border:{display:false},
+                            ticks:{precision:0}
+                        }
+                    }
+                },
+
+                plugins:[
+                    {
+                        id:'interPointLabels',
+
+                        afterDatasetsDraw(chart){
+
+                            const ctx = chart.ctx;
+                            const meta = chart.getDatasetMeta(0);
+
+                            meta.data.forEach((point,index)=>{
+
+                                ctx.save();
+                                ctx.font = '600 10px Montserrat';
+                                ctx.fillStyle = '#73858D';
+                                ctx.textAlign = 'center';
+
+                                ctx.fillText(
+                                    DATA.executive.interjourney[index],
+                                    point.x,
+                                    point.y-10
+                                );
+
+                                ctx.restore();
+                            });
+                        }
+                    }
+                ]
+            }
+        );
+}
+
+/* =========================================================
+   EXECUTIVE · ALMOÇO
+========================================================= */
+
+function renderExecutiveLunchChart(){
+
+    if(executiveLunchChart){
+        executiveLunchChart.destroy();
+    }
+
+    executiveLunchChart =
+        new Chart(
+            document.getElementById('executiveLunchChart').getContext('2d'),
+            {
+                type:'bar',
+
+                data:{
+                    labels:MONTHS_DYNAMIC,
+
+                    datasets:[
+                        {
+                            label:'<1h',
+                            data:DATA.executive.lunchLess,
+                            backgroundColor:COLORS.red,
+                            borderRadius:5,
+                            borderSkipped:false
+                        },
+
+                        {
+                            label:'>1h',
+                            data:DATA.executive.lunchMore,
+                            backgroundColor:COLORS.amber,
+                            borderRadius:5,
+                            borderSkipped:false
+                        }
+                    ]
+                },
+
+                options:{
+                    responsive:true,
+                    maintainAspectRatio:false,
+
+                    plugins:{
+                        legend:{
+                            position:'bottom',
+
+                            labels:{
+                                usePointStyle:true,
+                                boxWidth:7,
+                                padding:18
+                            }
+                        }
+                    },
+
+                    scales:{
+                        x:{
+                            stacked:false,
+                            grid:{display:false},
+                            border:{display:false}
+                        },
+
+                        y:{
+                            beginAtZero:true,
+                            stacked:false,
+                            grid:{display:false},
+                            border:{display:false},
+                            ticks:{precision:0}
+                        }
+                    }
+                }
+            }
+        );
+}
+
+function renderExecutiveCharts(){
+    renderExecutiveHEChart();
+    renderExecutiveInterChart();
+    renderExecutiveLunchChart();
+}
+
+/* =========================================================
+   HE MANAGEMENT
+========================================================= */
+
+function renderHEManagementTable(){
+
+    const tbody =
+        document.getElementById('heManagementTable');
+
+    tbody.innerHTML = '';
+
+    const company =
+        document.getElementById('companyFilter').value;
+
+    DATA.overtime.managements
+        .slice()
+        .sort((a,b)=>heWorstFirst(a,b))
+        .forEach(item=>{
+
+            const hasTarget =
+                item.target !== null && item.target !== undefined;
+
+            let targetText = '—';
+            let deviationText = '—';
+            let attainmentText = '—';
+
+            let statusHTML =
+                '<span class="muted">Não definida</span>';
+
+            if(hasTarget){
+
+                const deviation =
+                    item.hours-item.target;
+
+                const status =
+                    targetStatus(item.hours,item.target);
+
+                targetText =
+                    item.target+' h';
+
+                deviationText =
+                    (deviation>0?'+':'') +
+                    deviation +
+                    ' h';
+
+                attainmentText =
+                    status.attainment === null ? '—' : formatPercent(status.attainment);
+
+                statusHTML =
+                    `<span class="status ${status.className}">
+                        ${status.label}
+                    </span>`;
+            }
+
+            const tr =
+                document.createElement('tr');
+
+            tr.innerHTML = `
+                <td class="strong">${item.name}</td>
+                <td class="numeric">${targetText}</td>
+                <td class="numeric strong">${item.hours} h</td>
+                <td class="numeric">${deviationText}</td>
+                <td class="numeric">${attainmentText}</td>
+                <td>${statusHTML}</td>
+
+                <td>
+                    <button
+                        class="action"
+                        onclick="selectHEManagement(${jsArg(item.name)})"
+                    >
+                        Detalhar
+                    </button>
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+}
+
+/* Pior → melhor em HE: meta zero estourada; depois maior % de atingimento;
+   sem meta vai para o fim (por horas realizadas). */
+function heRank(item){
+    if(item.target === null || item.target === undefined) return -1;
+    if(item.target === 0) return item.hours > 0 ? Infinity : 0;
+    return item.hours / item.target;
+}
+function heWorstFirst(a,b){
+    const ra = heRank(a), rb = heRank(b);
+    if(ra !== rb) return rb - ra;
+    return b.hours - a.hours;
+}
+
+function jsArg(v){
+    return JSON.stringify(String(v)).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+}
+
+function heTargetText(hours,target){
+    if(target === null || target === undefined) return {t:'Não definida', d:'—', cls:''};
+    const st = targetStatus(hours,target);
+    const dev = hours - target;
+    return {t: target+' h', d: (dev>0?'+':'')+dev+' h', cls: st ? st.className : ''};
+}
+
+function selectHEManagement(name){
+
+    selectedHEManagement = name;
+    selectedHESector = null;
+
+    resetEmployeeViewState('he');
+
+    document.getElementById('heLevel2').classList.add('visible');
+    document.getElementById('heLevel3').classList.remove('visible');
+
+    const management =
+        DATA.overtime.managements.find(
+            item=>item.name===name
+        );
+
+    document.getElementById('heSelectedManagement').textContent =
+        name;
+
+    document.getElementById('heSelectedHours').textContent =
+        management.hours+' h';
+
+    document.getElementById('heSelectedShare').textContent =
+        formatPercent(management.share);
+
+    const mt = heTargetText(management.hours, management.target);
+    document.getElementById('heSelectedTarget').textContent = mt.t;
+    const devEl = document.getElementById('heSelectedDeviation');
+    devEl.textContent = mt.d;
+    devEl.style.color = mt.cls==='red' ? 'var(--red-dark)' : mt.cls==='yellow' ? 'var(--amber-dark)' : mt.cls==='green' ? 'var(--green-dark)' : '';
+    document.getElementById('heSelectedSectorTarget').textContent = '—';
+
+    document.getElementById('heSelectedSector').textContent =
+        'Clique no gráfico';
+
+    requestAnimationFrame(()=>{
+
+        renderHEPareto();
+
+        document.getElementById('heLevel2').scrollIntoView({
+            behavior:'smooth',
+            block:'start'
+        });
+    });
+}
+
+function setHEParetoMode(mode){
+
+    heParetoMode = mode;
+
+    document.getElementById('heParetoRealized')
+        .classList.toggle(
+            'active',
+            mode === 'realized'
+        );
+
+    document.getElementById('heParetoDeviation')
+        .classList.toggle(
+            'active',
+            mode === 'deviation'
+        );
+
+    selectedHESector = null;
+
+    resetEmployeeViewState('he');
+
+    document.getElementById('heSelectedSector').textContent =
+        'Clique no gráfico';
+
+    document.getElementById('heSelectedSectorTarget').textContent = '—';
+
+    document.getElementById('heLevel3')
+        .classList
+        .remove('visible');
+
+    renderHEPareto();
+}
+
+function renderHEPareto(){
+
+    if(!selectedHEManagement){
+        return;
+    }
+
+    const sectors =
+        DATA.overtime.sectors[selectedHEManagement] || [];
+
+    const ordered =
+        sectors
+        .map(item=>{
+
+            const deviation =
+                (item.target === null || item.target === undefined)
+                ? 0
+                : item.hours-item.target;
+
+            return {
+                ...item,
+                deviation
+            };
+        })
+        .slice()
+        .sort((a,b)=>{
+
+            if(heParetoMode === 'deviation'){
+                return b.deviation-a.deviation;
+            }
+
+            return b.hours-a.hours;
+        });
+
+    const values =
+        ordered.map(item=>
+            heParetoMode === 'deviation'
+            ? Math.max(0,item.deviation)
+            : item.hours
+        );
+
+    const total =
+        values.reduce(
+            (sum,value)=>sum+value,
+            0
+        );
+
+    let accumulated = 0;
+
+    const cumulative =
+        values.map(value=>{
+
+            accumulated += value;
+
+            return total
+                ? accumulated/total*100
+                : 0;
+        });
+
+    if(heParetoChart){
+        heParetoChart.destroy();
+    }
+
+    heParetoChart =
+        new Chart(
+            document
+                .getElementById('heParetoChart')
+                .getContext('2d'),
+            {
+                data:{
+                    labels:ordered.map(item=>item.name),
+
+                    datasets:[
+                        {
+                            type:'bar',
+                            label:'Realizado',
+                            data:values,
+                            backgroundColor:COLORS.petroleum,
+                            borderRadius:5,
+                            borderSkipped:false,
+                            yAxisID:'y',
+                            order:1,
+                            hideDataLabels:false
+                        },
+
+                        {
+                            type:'line',
+                            label:'% acumulado',
+                            data:cumulative,
+                            borderColor:COLORS.accent,
+                            backgroundColor:COLORS.accent,
+                            pointBackgroundColor:COLORS.accent,
+                            pointBorderColor:'#fff',
+                            pointBorderWidth:2,
+                            pointRadius:4,
+                            borderWidth:2,
+                            tension:.20,
+                            yAxisID:'y1',
+                            order:0,
+                            hideDataLabels:true,
+                            cumulativeLabels:true
+                        },
+
+                        ...(heParetoMode === 'realized' ? [{
+                            type:'line',
+                            label:'Meta',
+                            data:ordered.map(item=>
+                                (item.target === null || item.target === undefined) ? null : item.target),
+                            showLine:false,
+                            pointStyle:'line',
+                            pointRadius:16,
+                            pointHoverRadius:16,
+                            pointBorderWidth:3,
+                            borderColor:COLORS.amber,
+                            backgroundColor:COLORS.amber,
+                            yAxisID:'y',
+                            order:0,
+                            hideDataLabels:true
+                        }] : [])
+                    ]
+                },
+
+                options:{
+                    responsive:true,
+                    maintainAspectRatio:false,
+
+                    interaction:{
+                        mode:'nearest',
+                        intersect:true
+                    },
+
+                    onClick:(event,elements)=>{
+
+                        if(!elements.length){
+                            return;
+                        }
+
+                        const element =
+                            elements.find(
+                                el=>el.datasetIndex===0
+                            ) || elements[0];
+
+                        selectedHESector =
+                            ordered[element.index].name;
+
+                        resetEmployeeViewState('he');
+
+                        document
+                            .getElementById('heSelectedSector')
+                            .textContent =
+                            selectedHESector;
+
+                        {
+                            const it = ordered[element.index];
+                            const st = heTargetText(it.hours, it.target);
+                            document.getElementById('heSelectedSectorTarget').textContent =
+                                st.t === 'Não definida' ? st.t : st.t + ' (desvio ' + st.d + ')';
+                        }
+
+                        document
+                            .getElementById('heLevel3')
+                            .classList
+                            .add('visible');
+
+                        renderHEEmployees();
+
+                        setTimeout(()=>{
+
+                            document
+                                .getElementById('heLevel3')
+                                .scrollIntoView({
+                                    behavior:'smooth',
+                                    block:'start'
+                                });
+
+                        },50);
+                    },
+
+                    plugins:{
+                        legend:{
+                            position:'bottom',
+
+                            labels:{
+                                usePointStyle:true,
+                                boxWidth:7,
+                                padding:18
+                            }
+                        }
+                    },
+
+                    scales:{
+                        x:{
+                            grid:{display:false},
+                            border:{display:false}
+                        },
+
+                        y:{
+                            beginAtZero:true,
+                            grid:{display:false},
+                            border:{display:false},
+
+                            ticks:{
+                                callback:value=>value+' h'
+                            }
+                        },
+
+                        y1:{
+                            beginAtZero:true,
+                            max:110,
+                            position:'right',
+                            grid:{display:false},
+                            border:{display:false},
+
+                            ticks:{
+                                callback:value=>value+'%'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+}
+
+/* =========================================================
+   INTERJOURNEY MANAGEMENT
+========================================================= */
+
+function renderInterManagementTable(){
+
+    const tbody =
+        document.getElementById('interManagementTable');
+
+    tbody.innerHTML = '';
+
+    const total =
+        DATA.interjourney.managements.reduce(
+            (sum,item)=>sum+item.occurrences,
+            0
+        );
+
+    DATA.interjourney.managements
+        .slice()
+        .sort((a,b)=>b.occurrences-a.occurrences)
+        .forEach(item=>{
+
+            const share =
+                total
+                ? item.occurrences / total * 100
+                : 0;
+
+            const tr =
+                document.createElement('tr');
+
+            tr.innerHTML = `
+                <td class="strong">${item.name}</td>
+                <td class="numeric">${item.employees}</td>
+                <td class="numeric strong">${item.occurrences}</td>
+                <td class="numeric">${item.minimum}</td>
+                <td class="numeric">${formatPercent(share)}</td>
+
+                <td>
+                    <button
+                        class="action"
+                        onclick="selectInterManagement(${jsArg(item.name)})"
+                    >
+                        Detalhar
+                    </button>
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+}
+
+function selectInterManagement(name){
+
+    selectedInterManagement = name;
+    selectedInterSector = null;
+
+    resetEmployeeViewState('inter');
+
+    document.getElementById('interLevel2').classList.add('visible');
+    document.getElementById('interLevel3').classList.remove('visible');
+
+    const management =
+        DATA.interjourney.managements.find(
+            item=>item.name===name
+        );
+
+    const total =
+        DATA.interjourney.managements.reduce(
+            (sum,item)=>sum+item.occurrences,
+            0
+        );
+
+    document.getElementById('interSelectedManagement').textContent =
+        name;
+
+    document.getElementById('interSelectedOccurrences').textContent =
+        management.occurrences;
+
+    document.getElementById('interSelectedShare').textContent =
+        formatPercent(
+            management.occurrences /
+            total *
+            100
+        );
+
+    document.getElementById('interSelectedSector').textContent =
+        'Clique no gráfico';
+
+    requestAnimationFrame(()=>{
+
+        renderInterPareto();
+
+        document.getElementById('interLevel2').scrollIntoView({
+            behavior:'smooth',
+            block:'start'
+        });
+    });
+}
+
+function renderInterPareto(){
+
+    if(!selectedInterManagement){
+        return;
+    }
+
+    const ordered =
+        (
+            DATA.interjourney.sectors[selectedInterManagement] || []
+        )
+        .slice()
+        .sort(
+            (a,b)=>b.occurrences-a.occurrences
+        );
+
+    const values =
+        ordered.map(
+            item=>item.occurrences
+        );
+
+    const total =
+        values.reduce(
+            (sum,value)=>sum+value,
+            0
+        );
+
+    let accumulated = 0;
+
+    const cumulative =
+        values.map(value=>{
+
+            accumulated += value;
+
+            return total
+                ? accumulated/total*100
+                : 0;
+        });
+
+    if(interParetoChart){
+        interParetoChart.destroy();
+    }
+
+    interParetoChart =
+        new Chart(
+            document
+                .getElementById('interParetoChart')
+                .getContext('2d'),
+            {
+                data:{
+                    labels:ordered.map(item=>item.name),
+
+                    datasets:[
+                        {
+                            type:'bar',
+                            label:'Ocorrências',
+                            data:values,
+                            backgroundColor:COLORS.red,
+                            borderRadius:5,
+                            borderSkipped:false,
+                            yAxisID:'y',
+                            order:1
+                        },
+
+                        {
+                            type:'line',
+                            label:'% acumulado',
+                            data:cumulative,
+                            borderColor:COLORS.accent,
+                            backgroundColor:COLORS.accent,
+                            pointBackgroundColor:COLORS.accent,
+                            pointBorderColor:'#fff',
+                            pointBorderWidth:2,
+                            pointRadius:4,
+                            borderWidth:2,
+                            tension:.20,
+                            yAxisID:'y1',
+                            order:0,
+                            hideDataLabels:true,
+                            cumulativeLabels:true
+                        }
+                    ]
+                },
+
+                options:{
+                    responsive:true,
+                    maintainAspectRatio:false,
+
+                    interaction:{
+                        mode:'nearest',
+                        intersect:true
+                    },
+
+                    onClick:(event,elements)=>{
+
+                        if(!elements.length){
+                            return;
+                        }
+
+                        const element =
+                            elements.find(
+                                el=>el.datasetIndex===0
+                            ) || elements[0];
+
+                        selectedInterSector =
+                            ordered[element.index].name;
+
+                        resetEmployeeViewState('inter');
+
+                        document
+                            .getElementById('interSelectedSector')
+                            .textContent =
+                            selectedInterSector;
+
+                        document
+                            .getElementById('interLevel3')
+                            .classList
+                            .add('visible');
+
+                        renderInterEmployees();
+
+                        setTimeout(()=>{
+
+                            document
+                                .getElementById('interLevel3')
+                                .scrollIntoView({
+                                    behavior:'smooth',
+                                    block:'start'
+                                });
+
+                        },50);
+                    },
+
+                    plugins:{
+                        legend:{
+                            position:'bottom',
+
+                            labels:{
+                                usePointStyle:true,
+                                boxWidth:7,
+                                padding:18
+                            }
+                        }
+                    },
+
+                    scales:{
+                        x:{
+                            grid:{display:false},
+                            border:{display:false}
+                        },
+
+                        y:{
+                            beginAtZero:true,
+                            grid:{display:false},
+                            border:{display:false},
+                            ticks:{precision:0}
+                        },
+
+                        y1:{
+                            beginAtZero:true,
+                            max:110,
+                            position:'right',
+                            grid:{display:false},
+                            border:{display:false},
+
+                            ticks:{
+                                callback:value=>value+'%'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+}
+
+/* =========================================================
+   LUNCH MANAGEMENT
+========================================================= */
+
+function lunchTotal(item){
+    return item.less + item.more;
+}
+
+function lunchSectorValue(item){
+
+    if(lunchParetoMode === 'less'){
+        return item.less;
+    }
+
+    if(lunchParetoMode === 'more'){
+        return item.more;
+    }
+
+    return item.less + item.more;
+}
+
+function renderLunchManagementTable(){
+
+    const tbody =
+        document.getElementById('lunchManagementTable');
+
+    tbody.innerHTML = '';
+
+    const total =
+        DATA.lunch.managements.reduce(
+            (sum,item)=>sum+lunchTotal(item),
+            0
+        );
+
+    DATA.lunch.managements
+        .slice()
+        .sort(
+            (a,b)=>lunchTotal(b)-lunchTotal(a)
+        )
+        .forEach(item=>{
+
+            const itemTotal =
+                lunchTotal(item);
+
+            const share =
+                total
+                ? itemTotal / total * 100
+                : 0;
+
+            const lessPredominates =
+                item.less >= item.more;
+
+            const tr =
+                document.createElement('tr');
+
+            tr.innerHTML = `
+                <td class="strong">${item.name}</td>
+                <td class="numeric">${item.employees}</td>
+                <td class="numeric strong">${item.less}</td>
+                <td class="numeric strong">${item.more}</td>
+                <td class="numeric strong">${itemTotal}</td>
+                <td class="numeric">${formatPercent(share)}</td>
+
+                <td>
+                    <span class="status ${lessPredominates?'red':'yellow'}">
+                        ${lessPredominates?'<1h':'>1h'}
+                    </span>
+                </td>
+
+                <td>
+                    <button
+                        class="action"
+                        onclick="selectLunchManagement(${jsArg(item.name)})"
+                    >
+                        Detalhar
+                    </button>
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+}
+
+function selectLunchManagement(name){
+
+    selectedLunchManagement = name;
+    selectedLunchSector = null;
+
+    resetEmployeeViewState('lunch');
+
+    document.getElementById('lunchLevel2').classList.add('visible');
+    document.getElementById('lunchLevel3').classList.remove('visible');
+
+    const management =
+        DATA.lunch.managements.find(
+            item=>item.name===name
+        );
+
+    document.getElementById('lunchSelectedManagement').textContent =
+        name;
+
+    document.getElementById('lunchSelectedTotal').textContent =
+        lunchTotal(management);
+
+    document.getElementById('lunchSelectedLess').textContent =
+        management.less;
+
+    document.getElementById('lunchSelectedMore').textContent =
+        management.more;
+
+    document.getElementById('lunchSelectedSector').textContent =
+        'Clique no gráfico';
+
+    requestAnimationFrame(()=>{
+
+        renderLunchPareto();
+
+        document.getElementById('lunchLevel2').scrollIntoView({
+            behavior:'smooth',
+            block:'start'
+        });
+    });
+}
+
+function setLunchParetoMode(mode){
+
+    lunchParetoMode = mode;
+
+    document.getElementById('lunchTotalButton')
+        .classList.toggle(
+            'active',
+            mode === 'total'
+        );
+
+    document.getElementById('lunchLessButton')
+        .classList.toggle(
+            'active',
+            mode === 'less'
+        );
+
+    document.getElementById('lunchMoreButton')
+        .classList.toggle(
+            'active',
+            mode === 'more'
+        );
+
+    selectedLunchSector = null;
+
+    resetEmployeeViewState('lunch');
+
+    document.getElementById('lunchSelectedSector').textContent =
+        'Clique no gráfico';
+
+    document.getElementById('lunchLevel3')
+        .classList
+        .remove('visible');
+
+    renderLunchPareto();
+}
+
+function renderLunchPareto(){
+
+    if(!selectedLunchManagement){
+        return;
+    }
+
+    const ordered =
+        (
+            DATA.lunch.sectors[selectedLunchManagement] || []
+        )
+        .slice()
+        .sort(
+            (a,b)=>lunchSectorValue(b)-lunchSectorValue(a)
+        );
+
+    const values =
+        ordered.map(
+            item=>lunchSectorValue(item)
+        );
+
+    const total =
+        values.reduce(
+            (sum,value)=>sum+value,
+            0
+        );
+
+    let accumulated = 0;
+
+    const cumulative =
+        values.map(value=>{
+
+            accumulated += value;
+
+            return total
+                ? accumulated/total*100
+                : 0;
+        });
+
+    const barColor =
+        lunchParetoMode === 'less'
+        ? COLORS.red
+        : lunchParetoMode === 'more'
+            ? COLORS.amber
+            : COLORS.petroleum;
+
+    document.getElementById('lunchParetoSubtitle').textContent =
+        lunchParetoMode === 'less'
+        ? 'Concentração dos intervalos inferiores a 1 hora dentro da gerência selecionada'
+        : lunchParetoMode === 'more'
+            ? 'Concentração dos intervalos superiores a 1 hora dentro da gerência selecionada'
+            : 'Concentração do total de ocorrências dentro da gerência selecionada';
+
+    if(lunchParetoChart){
+        lunchParetoChart.destroy();
+    }
+
+    lunchParetoChart =
+        new Chart(
+            document
+                .getElementById('lunchParetoChart')
+                .getContext('2d'),
+            {
+                data:{
+                    labels:ordered.map(item=>item.name),
+
+                    datasets:[
+                        {
+                            type:'bar',
+                            label:'Ocorrências',
+                            data:values,
+                            backgroundColor:barColor,
+                            borderRadius:5,
+                            borderSkipped:false,
+                            yAxisID:'y',
+                            order:1
+                        },
+
+                        {
+                            type:'line',
+                            label:'% acumulado',
+                            data:cumulative,
+                            borderColor:COLORS.accent,
+                            backgroundColor:COLORS.accent,
+                            pointBackgroundColor:COLORS.accent,
+                            pointBorderColor:'#fff',
+                            pointBorderWidth:2,
+                            pointRadius:4,
+                            borderWidth:2,
+                            tension:.20,
+                            yAxisID:'y1',
+                            order:0,
+                            hideDataLabels:true,
+                            cumulativeLabels:true
+                        }
+                    ]
+                },
+
+                options:{
+                    responsive:true,
+                    maintainAspectRatio:false,
+
+                    interaction:{
+                        mode:'nearest',
+                        intersect:true
+                    },
+
+                    onClick:(event,elements)=>{
+
+                        if(!elements.length){
+                            return;
+                        }
+
+                        const element =
+                            elements.find(
+                                el=>el.datasetIndex===0
+                            ) || elements[0];
+
+                        selectedLunchSector =
+                            ordered[element.index].name;
+
+                        resetEmployeeViewState('lunch');
+
+                        document
+                            .getElementById('lunchSelectedSector')
+                            .textContent =
+                            selectedLunchSector;
+
+                        document
+                            .getElementById('lunchLevel3')
+                            .classList
+                            .add('visible');
+
+                        renderLunchEmployees();
+
+                        setTimeout(()=>{
+
+                            document
+                                .getElementById('lunchLevel3')
+                                .scrollIntoView({
+                                    behavior:'smooth',
+                                    block:'start'
+                                });
+
+                        },50);
+                    },
+
+                    plugins:{
+                        legend:{
+                            position:'bottom',
+
+                            labels:{
+                                usePointStyle:true,
+                                boxWidth:7,
+                                padding:18
+                            }
+                        }
+                    },
+
+                    scales:{
+                        x:{
+                            grid:{display:false},
+                            border:{display:false}
+                        },
+
+                        y:{
+                            beginAtZero:true,
+                            grid:{display:false},
+                            border:{display:false},
+                            ticks:{precision:0}
+                        },
+
+                        y1:{
+                            beginAtZero:true,
+                            max:110,
+                            position:'right',
+                            grid:{display:false},
+                            border:{display:false},
+
+                            ticks:{
+                                callback:value=>value+'%'
+                            }
+                        }
+                    }
+                }
+            }
+        );
+}
+
+/* =========================================================
+   EMPLOYEE VIEW HELPERS
+========================================================= */
+function resetEmployeeViewState(type){
+
+    employeeViewState[type].scope = 'sector';
+    employeeViewState[type].sort = 'desc';
+
+    updateEmployeeScopeUI(type);
+    updateEmployeeSortUI(type);
+
+    const search =
+        document.getElementById(type+'Search');
+
+    if(search){
+        search.value = '';
+    }
+}
+
+function setEmployeeScope(type,scope){
+
+    employeeViewState[type].scope = scope;
+
+    updateEmployeeScopeUI(type);
+
+    if(type === 'he'){
+        renderHEEmployees();
+    }
+
+    if(type === 'inter'){
+        renderInterEmployees();
+    }
+
+    if(type === 'lunch'){
+        renderLunchEmployees();
+    }
+}
+
+function updateEmployeeScopeUI(type){
+
+    const state =
+        employeeViewState[type];
+
+    const sectorButton =
+        document.getElementById(type+'ScopeSector');
+
+    const allButton =
+        document.getElementById(type+'ScopeAll');
+
+    const sectorHeader =
+        document.getElementById(type+'SectorHeader');
+
+    if(!sectorButton){
+        return;
+    }
+
+    sectorButton.classList.toggle(
+        'active',
+        state.scope === 'sector'
+    );
+
+    allButton.classList.toggle(
+        'active',
+        state.scope === 'all'
+    );
+
+    sectorHeader.style.display =
+        state.scope === 'all'
+        ? ''
+        : 'none';
+}
+
+/* =========================================================
+   EMPLOYEE SORT
+========================================================= */
+
+function toggleEmployeeSort(type){
+
+    const state =
+        employeeViewState[type];
+
+    state.sort =
+        state.sort === 'desc'
+        ? 'asc'
+        : 'desc';
+
+    updateEmployeeSortUI(type);
+
+    if(type === 'he'){
+        renderHEEmployees();
+    }
+
+    if(type === 'inter'){
+        renderInterEmployees();
+    }
+
+    if(type === 'lunch'){
+        renderLunchEmployees();
+    }
+}
+
+function updateEmployeeSortUI(type){
+
+    const arrow =
+        document.getElementById(type+'SortArrow');
+
+    if(!arrow){
+        return;
+    }
+
+    arrow.textContent =
+        employeeViewState[type].sort === 'asc'
+        ? '▲'
+        : '▼';
+}
+
+/* =========================================================
+   EMPLOYEE DATA HELPERS
+========================================================= */
+
+function getManagementSectorNames(module,management){
+
+    if(
+        !management ||
+        !DATA[module] ||
+        !DATA[module].sectors[management]
+    ){
+        return [];
+    }
+
+    return DATA[module]
+        .sectors[management]
+        .map(item=>item.name);
+}
+
+function getEmployeesForView(type){
+
+    const state =
+        employeeViewState[type];
+
+    let module;
+    let management;
+    let sector;
+
+    if(type === 'he'){
+        module = 'overtime';
+        management = selectedHEManagement;
+        sector = selectedHESector;
+    }
+
+    if(type === 'inter'){
+        module = 'interjourney';
+        management = selectedInterManagement;
+        sector = selectedInterSector;
+    }
+
+    if(type === 'lunch'){
+        module = 'lunch';
+        management = selectedLunchManagement;
+        sector = selectedLunchSector;
+    }
+
+    if(state.scope === 'sector'){
+
+        return (
+            DATA[module].employees[sector] || []
+        ).map(employee=>({
+            ...employee,
+            sector
+        }));
+    }
+
+    const sectors =
+        getManagementSectorNames(
+            module,
+            management
+        );
+
+    return sectors.flatMap(
+        sectorName=>
+            (
+                DATA[module].employees[sectorName] || []
+            ).map(employee=>({
+                ...employee,
+                sector:sectorName
+            }))
+    );
+}
+
+function getHESectorTotal(sector){
+
+    const employees =
+        DATA.overtime.employees[sector] || [];
+
+    return employees.reduce(
+        (sum,item)=>sum+item.hours,
+        0
+    );
+}
+
+function getInterSectorTotal(sector){
+
+    const employees =
+        DATA.interjourney.employees[sector] || [];
+
+    return employees.reduce(
+        (sum,item)=>sum+item.occurrences,
+        0
+    );
+}
+
+/* =========================================================
+   NÍVEL 3 · HORAS EXTRAS
+========================================================= */
+
+function renderHEEmployees(){
+
+    const tbody =
+        document.getElementById('heEmployeeTable');
+
+    const search =
+        document
+            .getElementById('heSearch')
+            .value
+            .trim()
+            .toLowerCase();
+
+    const state =
+        employeeViewState.he;
+
+    let data =
+        getEmployeesForView('he');
+
+    data =
+        data.filter(
+            item=>
+                item.name
+                    .toLowerCase()
+                    .includes(search)
+        );
+
+    data.sort(
+        (a,b)=>
+            state.sort === 'desc'
+            ? b.hours-a.hours
+            : a.hours-b.hours
+    );
+
+    if(state.scope === 'sector'){
+
+        document.getElementById('heEmployeeSubtitle').textContent =
+            'Gerência ' +
+            selectedHEManagement +
+            ' · Setor ' +
+            selectedHESector;
+
+    }else{
+
+        document.getElementById('heEmployeeSubtitle').textContent =
+            'Gerência ' +
+            selectedHEManagement +
+            ' · Todos os setores';
+    }
+
+    document.getElementById('heResultInfo').textContent =
+        data.length +
+        ' colaborador(es) exibido(s)';
+
+    tbody.innerHTML = '';
+
+    data.forEach(item=>{
+
+        const sectorTotal =
+            getHESectorTotal(item.sector);
+
+        const participation =
+            sectorTotal
+            ? item.hours / sectorTotal * 100
+            : 0;
+
+        const tr =
+            document.createElement('tr');
+
+        tr.innerHTML = `
+            <td class="strong">${item.name}</td>
+
+            ${
+                state.scope === 'all'
+                ? `<td>${item.sector}</td>`
+                : ''
+            }
+
+            <td class="numeric strong">
+                ${formatDecimal(item.hours)} h
+            </td>
+
+            <td class="numeric">
+                ${item.days}
+            </td>
+
+            <td class="numeric">
+                ${formatDecimal(item.max)} h
+            </td>
+
+            <td class="numeric">
+                ${formatPercent(participation)}
+            </td>
+
+            <td>
+                <button
+                    class="action"
+                    onclick="openHEDrawer(${jsArg(item.name)},${jsArg(item.sector)})"
+                >
+                    Ver histórico
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+/* =========================================================
+   NÍVEL 3 · INTERJORNADA
+========================================================= */
+
+function renderInterEmployees(){
+
+    const tbody =
+        document.getElementById('interEmployeeTable');
+
+    const search =
+        document
+            .getElementById('interSearch')
+            .value
+            .trim()
+            .toLowerCase();
+
+    const state =
+        employeeViewState.inter;
+
+    let data =
+        getEmployeesForView('inter');
+
+    data =
+        data.filter(
+            item=>
+                item.name
+                    .toLowerCase()
+                    .includes(search)
+        );
+
+    data.sort(
+        (a,b)=>
+            state.sort === 'desc'
+            ? b.occurrences-a.occurrences
+            : a.occurrences-b.occurrences
+    );
+
+    if(state.scope === 'sector'){
+
+        document.getElementById('interEmployeeSubtitle').textContent =
+            'Gerência ' +
+            selectedInterManagement +
+            ' · Setor ' +
+            selectedInterSector;
+
+    }else{
+
+        document.getElementById('interEmployeeSubtitle').textContent =
+            'Gerência ' +
+            selectedInterManagement +
+            ' · Todos os setores';
+    }
+
+    document.getElementById('interResultInfo').textContent =
+        data.length +
+        ' colaborador(es) exibido(s)';
+
+    tbody.innerHTML = '';
+
+    data.forEach(item=>{
+
+        const sectorTotal =
+            getInterSectorTotal(item.sector);
+
+        const participation =
+            sectorTotal
+            ? item.occurrences / sectorTotal * 100
+            : 0;
+
+        const tr =
+            document.createElement('tr');
+
+        tr.innerHTML = `
+            <td class="strong">${item.name}</td>
+
+            ${
+                state.scope === 'all'
+                ? `<td>${item.sector}</td>`
+                : ''
+            }
+
+            <td class="numeric strong">
+                ${item.occurrences}
+            </td>
+
+            <td class="numeric">
+                ${item.days}
+            </td>
+
+            <td class="numeric">
+                ${item.minimum}
+            </td>
+
+            <td>
+                ${item.last}
+            </td>
+
+            <td class="numeric">
+                ${formatPercent(participation)}
+            </td>
+
+            <td>
+                <button
+                    class="action"
+                    onclick="openInterDrawer(${jsArg(item.name)},${jsArg(item.sector)})"
+                >
+                    Ver histórico
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+/* =========================================================
+   NÍVEL 3 · ALMOÇO
+========================================================= */
+
+function renderLunchEmployees(){
+
+    const tbody =
+        document.getElementById('lunchEmployeeTable');
+
+    const search =
+        document
+            .getElementById('lunchSearch')
+            .value
+            .trim()
+            .toLowerCase();
+
+    const state =
+        employeeViewState.lunch;
+
+    let data =
+        getEmployeesForView('lunch');
+
+    data =
+        data.filter(
+            item=>
+                item.name
+                    .toLowerCase()
+                    .includes(search)
+        );
+
+    data.sort((a,b)=>{
+
+        const totalA =
+            a.less+a.more;
+
+        const totalB =
+            b.less+b.more;
+
+        return state.sort === 'desc'
+            ? totalB-totalA
+            : totalA-totalB;
+    });
+
+    if(state.scope === 'sector'){
+
+        document.getElementById('lunchEmployeeSubtitle').textContent =
+            'Gerência ' +
+            selectedLunchManagement +
+            ' · Setor ' +
+            selectedLunchSector;
+
+    }else{
+
+        document.getElementById('lunchEmployeeSubtitle').textContent =
+            'Gerência ' +
+            selectedLunchManagement +
+            ' · Todos os setores';
+    }
+
+    document.getElementById('lunchResultInfo').textContent =
+        data.length +
+        ' colaborador(es) exibido(s)';
+
+    tbody.innerHTML = '';
+
+    data.forEach(item=>{
+
+        const total =
+            item.less +
+            item.more;
+
+        const tr =
+            document.createElement('tr');
+
+        tr.innerHTML = `
+            <td class="strong">${item.name}</td>
+
+            ${
+                state.scope === 'all'
+                ? `<td>${item.sector}</td>`
+                : ''
+            }
+
+            <td class="numeric">
+                ${item.less}
+            </td>
+
+            <td class="numeric">
+                ${item.more}
+            </td>
+
+            <td class="numeric strong">
+                ${total}
+            </td>
+
+            <td class="numeric">
+                ${item.minimum}
+            </td>
+
+            <td class="numeric">
+                ${item.maximum}
+            </td>
+
+            <td>
+                <button
+                    class="action"
+                    onclick="openLunchDrawer(${jsArg(item.name)},${jsArg(item.sector)})"
+                >
+                    Ver histórico
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+/* =========================================================
+   DRAWER · HORAS EXTRAS
+========================================================= */
+
+function openHEDrawer(name,sector){
+
+    const employee =
+        (
+            DATA.overtime.employees[sector] || []
+        ).find(item=>item.name === name);
+
+    if(!employee){
+        return;
+    }
+
+    document.getElementById('drawerKicker').textContent =
+        'HISTÓRICO DE HORAS EXTRAS';
+
+    document.getElementById('drawerName').textContent =
+        employee.name;
+
+    document.getElementById('drawerSummary').innerHTML = `
+        <div class="drawer-stat">
+            <span>Setor</span>
+            <strong>${sector}</strong>
+        </div>
+
+        <div class="drawer-stat">
+            <span>HE no período</span>
+            <strong>${formatDecimal(employee.hours)} h</strong>
+        </div>
+
+        <div class="drawer-stat">
+            <span>Maior HE/dia</span>
+            <strong>${formatDecimal(employee.max)} h</strong>
+        </div>
+    `;
+
+    document.getElementById('drawerHead').innerHTML = `
+        <tr>
+            <th>Data</th>
+            <th class="numeric">HE</th>
+        </tr>
+    `;
+
+    document.getElementById('drawerTable').innerHTML =
+        employee.history
+            .map(item=>`
+                <tr>
+                    <td>${item[0]}</td>
+
+                    <td class="numeric strong">
+                        ${formatDecimal(item[1])} h
+                    </td>
+                </tr>
+            `)
+            .join('');
+
+    openDrawer();
+}
+
+/* =========================================================
+   DRAWER · INTERJORNADA
+========================================================= */
+
+function openInterDrawer(name,sector){
+
+    const employee =
+        (
+            DATA.interjourney.employees[sector] || []
+        ).find(item=>item.name === name);
+
+    if(!employee){
+        return;
+    }
+
+    document.getElementById('drawerKicker').textContent =
+        'HISTÓRICO DE INTERJORNADA';
+
+    document.getElementById('drawerName').textContent =
+        employee.name;
+
+    document.getElementById('drawerSummary').innerHTML = `
+        <div class="drawer-stat">
+            <span>Setor</span>
+            <strong>${sector}</strong>
+        </div>
+
+        <div class="drawer-stat">
+            <span>Ocorrências</span>
+            <strong>${employee.occurrences}</strong>
+        </div>
+
+        <div class="drawer-stat">
+            <span>Menor intervalo</span>
+            <strong>${employee.minimum}</strong>
+        </div>
+    `;
+
+    document.getElementById('drawerHead').innerHTML = `
+        <tr>
+            <th>Data</th>
+            <th>Saída anterior</th>
+            <th>Entrada seguinte</th>
+            <th class="numeric">Intervalo</th>
+        </tr>
+    `;
+
+    document.getElementById('drawerTable').innerHTML =
+        employee.history
+            .map(item=>`
+                <tr>
+                    <td>${item.date}</td>
+                    <td>${item.exit}</td>
+                    <td>${item.entry}</td>
+
+                    <td class="numeric strong">
+                        ${item.interval}
+                    </td>
+                </tr>
+            `)
+            .join('');
+
+    openDrawer();
+}
+
+/* =========================================================
+   DRAWER · ALMOÇO
+========================================================= */
+
+function openLunchDrawer(name,sector){
+
+    const employee =
+        (
+            DATA.lunch.employees[sector] || []
+        ).find(item=>item.name === name);
+
+    if(!employee){
+        return;
+    }
+
+    document.getElementById('drawerKicker').textContent =
+        'HISTÓRICO DE HORÁRIO DE ALMOÇO';
+
+    document.getElementById('drawerName').textContent =
+        employee.name;
+
+    document.getElementById('drawerSummary').innerHTML = `
+        <div class="drawer-stat">
+            <span>Setor</span>
+            <strong>${sector}</strong>
+        </div>
+
+        <div class="drawer-stat">
+            <span>Intervalos &lt;1h</span>
+            <strong>${employee.less}</strong>
+        </div>
+
+        <div class="drawer-stat">
+            <span>Intervalos &gt;1h</span>
+            <strong>${employee.more}</strong>
+        </div>
+    `;
+
+    document.getElementById('drawerHead').innerHTML = `
+        <tr>
+            <th>Data</th>
+            <th>Início</th>
+            <th>Fim</th>
+            <th class="numeric">Duração</th>
+            <th>Tipo</th>
+        </tr>
+    `;
+
+    document.getElementById('drawerTable').innerHTML =
+        employee.history
+            .map(item=>{
+
+                const label =
+                    item.type === 'less'
+                    ? '<1h'
+                    : '>1h';
+
+                const className =
+                    item.type === 'less'
+                    ? 'less'
+                    : 'more';
+
+                return `
+                    <tr>
+                        <td>${item.date}</td>
+                        <td>${item.start}</td>
+                        <td>${item.end}</td>
+
+                        <td class="numeric strong">
+                            ${item.duration}
+                        </td>
+
+                        <td>
+                            <span class="type ${className}">
+                                ${label}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            })
+            .join('');
+
+    openDrawer();
+}
+
+/* =========================================================
+   DRAWER CONTROL
+========================================================= */
+
+function openDrawer(){
+
+    document
+        .getElementById('drawer')
+        .classList
+        .add('open');
+
+    document
+        .getElementById('drawerBackdrop')
+        .classList
+        .add('open');
+}
+
+function closeDrawer(){
+
+    document
+        .getElementById('drawer')
+        .classList
+        .remove('open');
+
+    document
+        .getElementById('drawerBackdrop')
+        .classList
+        .remove('open');
+}
+
+/* =========================================================
+   RESET DRILL-DOWNS
+========================================================= */
+
+function resetDrillDowns(){
+
+    selectedHEManagement = null;
+    selectedHESector = null;
+
+    selectedInterManagement = null;
+    selectedInterSector = null;
+
+    selectedLunchManagement = null;
+    selectedLunchSector = null;
+
+    resetEmployeeViewState('he');
+    resetEmployeeViewState('inter');
+    resetEmployeeViewState('lunch');
+
+    [
+        'heLevel2',
+        'heLevel3',
+        'interLevel2',
+        'interLevel3',
+        'lunchLevel2',
+        'lunchLevel3'
+    ].forEach(
+        id=>
+            document
+                .getElementById(id)
+                .classList
+                .remove('visible')
+    );
+}
+
+/* =========================================================
+   COMPANY FILTER
+========================================================= */
+
+function handleCompanyChange(){
+
+    if(BASES_RESULT){
+        processRawData(BASES_RESULT, METAS_RESULT || {cols:[],rows:[]});
+        initializeDashboard();
+    } else {
+        updateExecutiveTarget();
+        resetDrillDowns();
+        renderHEManagementTable();
+        if(currentScreen === 'executive') renderExecutiveHEChart();
+    }
+}
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+document
+    .getElementById('companyFilter')
+    .addEventListener(
+        'change',
+        handleCompanyChange
+    );
+
+document
+    .getElementById('heSearch')
+    .addEventListener(
+        'input',
+        renderHEEmployees
+    );
+
+document
+    .getElementById('interSearch')
+    .addEventListener(
+        'input',
+        renderInterEmployees
+    );
+
+document
+    .getElementById('lunchSearch')
+    .addEventListener(
+        'input',
+        renderLunchEmployees
+    );
+
+document.addEventListener(
+    'keydown',
+    event=>{
+
+        if(event.key === 'Escape'){
+            closeDrawer();
+        }
+    }
+);
+
+/* ── Filtro de período ──
+   Regras: a data final nunca passa de hoje; a inicial nunca passa da final.
+   Cards, tabelas, paretos e listas de colaboradores usam exatamente o período.
+   Os gráficos de evolução mensal mostram sempre o histórico completo. */
+function pad2(v){ return String(v).padStart(2,'0'); }
+function todayISO(){
+    const d = new Date();
+    return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());
+}
+function getPeriod(){
+    const sEl = document.getElementById('dateStart');
+    const eEl = document.getElementById('dateEnd');
+    const today = todayISO();
+    let st = sEl.value, en = eEl.value;
+    if(!en || en > today) en = today;
+    if(!st) st = en.slice(0,8)+'01';
+    if(st > en) st = en;
+    sEl.value = st; eEl.value = en;
+    eEl.max = today; sEl.max = en; eEl.min = st;
+    const [sy,sm,sd] = st.split('-').map(Number);
+    const [ey,em,ed] = en.split('-').map(Number);
+    return {
+        start:new Date(sy,sm-1,sd,0,0,0),
+        end:new Date(ey,em-1,ed,23,59,59),
+        startStr:st, endStr:en
+    };
+}
+function periodKey(){ const p = getPeriod(); return p.startStr+'|'+p.endStr; }
+function initPeriodDefaults(){
+    const today = todayISO();
+    document.getElementById('dateStart').value = today.slice(0,8)+'01';
+    document.getElementById('dateEnd').value = today;
+    getPeriod();
+}
+initPeriodDefaults();
+
+function handlePeriodChange(){
+    getPeriod();
+    if(BASES_RESULT){
+        processRawData(BASES_RESULT, METAS_RESULT || {cols:[],rows:[]});
+        initializeDashboard();
+    }
+    /* Se os dados ainda estão chegando, eles serão processados
+       automaticamente com o período escolhido. */
+}
+
+['dateStart','dateEnd'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('change', handlePeriodChange);
+});
+
+/* =========================================================
+   INIT
+========================================================= */
+
+function initializeDashboard(){
+
+    updateExecutiveTarget();
+    updateExecutiveCards();
+    renderExecutiveCharts();
+
+    renderHEManagementTable();
+    renderInterManagementTable();
+    renderLunchManagementTable();
+
+    resetDrillDowns();
+}
+
+/* A carga inicial é disparada no final do script (depois de todas as configurações). */
+
+/* =========================================================
+   CONFIGURAÇÃO
+========================================================= */
+
+const APPS_SCRIPT_URL =
+    'https://script.google.com/macros/s/AKfycbyVOhMYr_NwSBXuggSLtWLC5E3R_5_6Vb1DiFLNXEEWlZ8jIyZDbt3kIzVdCzBxA3PX/exec';
+
+/* ID da planilha — extraído da URL do Google Sheets */
+const SHEET_ID = '1CBhv0R723L8pyni9KfMYWfSxV-Oa93XfzDWK-94ISU4';
+
+/* Colunas necessárias para "Bases pontos" (evita transferir 45 colunas desnecessárias).
+   Ordem retornada → nova posição usada em processRawData:
+   C=0 D=1 F=2 H=3 I=4 AB=5 AD=6 AF=7 AI=8 G=9 AL=10 AN=11 AP=12 AQ=13 AS=14 AH=15 AT=16 */
+const BASES_SELECT = 'SELECT C,D,F,H,I,AB,AD,AF,AI,G,AL,AN,AP,AQ,AS,AH,AT WHERE C IS NOT NULL';
+
+/* ── Helpers ── */
+
+function parseTime(val){
+    if(val === null || val === undefined) return 0;
+    /* gviz timeofday → [h, m, s, ms] */
+    if(Array.isArray(val)) return (val[0]||0) + (val[1]||0)/60;
+    const s = String(val).trim();
+    if(!s || s === '0' || s === '0:00') return 0;
+    /* Descarta qualquer sufixo AM/PM — já extraímos H:MM do Date() antes de chegar aqui,
+       mas o fallback c.f pode vir como "4:50:00 AM" ou "15:48:00". */
+    const clean = s.replace(/\s*(AM|PM)$/i,'');
+    const p = clean.split(':');
+    let h = parseInt(p[0],10)||0;
+    const m = parseInt(p[1],10)||0;
+    /* Se o valor original tinha PM e a hora < 12, ajusta (raro — gviz datetime já usa 24h) */
+    if(/PM$/i.test(s) && h < 12) h += 12;
+    return h + m/60;
+}
+
+function formatIntervalStr(h){
+    const hh = Math.floor(h);
+    const mm = Math.round((h-hh)*60);
+    return hh+'h '+String(mm).padStart(2,'0')+'min';
+}
+
+function formatDurationStr(h){
+    if(h <= 0) return '0 min';
+    if(h >= 1){
+        const hh = Math.floor(h);
+        const mm = Math.round((h-hh)*60);
+        return hh+'h '+String(mm).padStart(2,'0')+'min';
+    }
+    return Math.round(h*60)+' min';
+}
+
+function formatDateStr(dateStr){
+    /* "5/26/2026" → "26/05/2026"
+       gviz() já converte Date(y,m,d) para M/D/YYYY antes de chegar aqui */
+    if(!dateStr) return '';
+    const s = String(dateStr);
+    /* Fallback: "Date(2026,4,26)" → "26/05/2026" */
+    if(s.startsWith('Date(')){
+        const dm = s.match(/Date\((\d+),(\d+),(\d+)\)/);
+        if(dm) return dm[3].padStart(2,'0')+'/'
+                      +String(parseInt(dm[2])+1).padStart(2,'0')+'/'+dm[1];
+    }
+    const p = s.split('/');
+    if(p.length !== 3) return s;
+    if(+p[0] > 12) return p[0].padStart(2,'0')+'/'+p[1].padStart(2,'0')+'/'+p[2];
+    return p[1].padStart(2,'0')+'/'+p[0].padStart(2,'0')+'/'+p[2];
+}
+
+function parseDateObj(dateStr){
+    const s = String(dateStr);
+    /* Fallback: "Date(2026,4,26)" */
+    if(s.startsWith('Date(')){
+        const dm = s.match(/Date\((\d+),(\d+),(\d+)\)/);
+        if(dm) return new Date(+dm[1], +dm[2], +dm[3]);
+    }
+    const p = s.split('/');
+    if(p.length !== 3) return new Date(0);
+    /* padrão do gviz: M/D/AAAA; se o 1º número passar de 12, é D/M/AAAA */
+    if(+p[0] > 12) return new Date(+p[2], +p[1]-1, +p[0]);
+    return new Date(+p[2], +p[0]-1, +p[1]);
+}
+
+function showLoading(visible){
+    const el = document.getElementById('loadingOverlay');
+    if(el) el.style.display = visible ? 'flex' : 'none';
+}
+
+function setLoadingText(msg){
+    const el = document.getElementById('loadingText');
+    if(el) el.textContent = msg;
+}
+
+function showError(msg){
+    const err  = document.getElementById('loadingError');
+    const spin = document.getElementById('loadingSpinner');
+    const txt  = document.getElementById('loadingText');
+    if(spin) spin.style.display = 'none';
+    if(txt)  txt.textContent   = 'Não foi possível carregar';
+    if(err){
+        err.innerHTML =
+            msg +
+            '<br><br>' +
+            '<button onclick="loadAndProcess()" style="' +
+              'margin-top:8px;padding:10px 24px;' +
+              'background:#15D2FF;color:#003D58;' +
+              'border:none;border-radius:6px;' +
+              'font-family:Montserrat,sans-serif;' +
+              'font-weight:700;font-size:14px;cursor:pointer' +
+            '">Tentar novamente</button>';
+        err.style.display = 'block';
+    }
+    console.error('[Dashboard]', msg);
+}
+
+/* ══════════════════════════════════════════════════════
+   LEITURA DIRETA VIA GOOGLE SHEETS gviz API
+   Bypassa o Apps Script → 5-10× mais rápido.
+   Requer "qualquer pessoa com link pode visualizar".
+   ══════════════════════════════════════════════════════ */
+
+/* Cache em localStorage (TTL 6h) para evitar re-leitura */
+const LC_KEY = 'aquila_dc_v10';
+const LC_TTL = 6 * 60 * 60 * 1000;
+
+function lcSave(data, months){
+    try{
+        localStorage.setItem(LC_KEY, JSON.stringify({ts:Date.now(), data, months, period:periodKey()}));
+        console.log('[LC] salvo');
+    }catch(e){ console.warn('[LC] save falhou:', e.message); }
+}
+function lcLoad(){
+    try{
+        const raw = localStorage.getItem(LC_KEY);
+        if(!raw) return null;
+        const o = JSON.parse(raw);
+        if(!o||!o.data) return null;
+        const age = Date.now()-o.ts;
+        if(age > LC_TTL) return null;
+        if(o.period !== periodKey()) return null;
+        console.log('[LC] hit — '+Math.round(age/60000)+'min');
+        return o;
+    }catch(e){ return null; }
+}
+function lcClear(){ localStorage.removeItem(LC_KEY); }
+function lcAgeMin(){
+    try{
+        const raw=localStorage.getItem(LC_KEY);
+        if(!raw) return null;
+        const o=JSON.parse(raw);
+        return o&&o.ts ? Math.round((Date.now()-o.ts)/60000) : null;
+    }catch(e){ return null; }
+}
+
+/* ══════════════════════════════════════════════════════
+   LEITURA VIA GOOGLE VISUALIZATION API — JSONP
+   Usa <script> em vez de fetch → sem CORS.
+   Agrega no Google (GROUP BY / SUM / COUNT) → só o
+   resultado pequeno trafega. 5-10× mais rápido.
+   ══════════════════════════════════════════════════════ */
+
+function gviz(sheet, query){
+    return new Promise((resolve, reject) => {
+        const cb = 'gv_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+        const s  = document.createElement('script');
+        const timer = setTimeout(()=>{
+            cleanup();
+            reject(new Error('Tempo esgotado lendo "' + sheet + '"'));
+        }, 30000);
+        function cleanup(){ clearTimeout(timer); delete window[cb]; s.remove(); }
+
+        window[cb] = resp => {
+            cleanup();
+            if(resp.status === 'error')
+                return reject(new Error(
+                    (resp.errors||[]).map(e=>e.detailed_message||e.message).join('; ')
+                ));
+
+            const table = resp.table || {cols:[], rows:[]};
+            const cols = (table.cols||[]).map(c=>({label:c.label, type:c.type}));
+
+            const rows = (table.rows||[]).map(r=>
+                (r.c||[]).map((c,i)=>{
+                    if(!c || c.v===null || c.v===undefined) return null;
+                    const type = cols[i] ? cols[i].type : '';
+                    /* Date → "M/D/YYYY" (igual ao formato antigo) */
+                    if(type === 'date'){
+                        if(typeof c.v === 'string'){
+                            const dm = c.v.match(/Date\((\d+),(\d+),(\d+)\)/);
+                            if(dm) return (parseInt(dm[2])+1)+'/'+dm[3]+'/'+dm[1];
+                        }
+                        return c.f || String(c.v);
+                    }
+                    /* timeofday → "H:MM" string (parseTime aceita arrays também) */
+                    if(type === 'timeofday'){
+                        if(Array.isArray(c.v))
+                            return c.v[0]+':'+String(c.v[1]||0).padStart(2,'0');
+                        return c.f || String(c.v);
+                    }
+                    /* datetime → extrai H:MM da parte de hora do construtor Date(y,m,d,h,min,s)
+                       Usado por AB (HE Total), H, I, AF, AI, AK — todos colunas de tempo/duração.
+                       Retorna string "H:MM" no mesmo formato que parseTime() já sabe ler. */
+                    if(type === 'datetime'){
+                        if(typeof c.v === 'string'){
+                            const dm = c.v.match(/Date\(\d+,\d+,\d+,(\d+),(\d+)/);
+                            if(dm) return dm[1]+':'+String(dm[2]).padStart(2,'0');
+                        }
+                        /* Fallback: usa o valor formatado (c.f) */
+                        return c.f || null;
+                    }
+                    return c.v ?? null;
+                })
+            );
+
+            resolve({cols, rows});
+        };
+
+        s.onerror = ()=>{ cleanup(); reject(new Error('Falha ao carregar "'+sheet+'"')); };
+        s.src = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID
+              + '/gviz/tq?tqx=responseHandler:' + cb
+              + '&sheet=' + encodeURIComponent(sheet)
+              + '&headers=1&tq=' + encodeURIComponent(query);
+        document.head.appendChild(s);
+    });
+}
+
+/* ── Botão flutuante "Atualizar" ── */
+function injectRefreshButton(ageMin){
+    let btn = document.getElementById('btnRefreshData');
+    if(!btn){
+        btn = document.createElement('button');
+        btn.id = 'btnRefreshData';
+        btn.style.cssText=[
+            'position:fixed','bottom:18px','right:18px','z-index:9000',
+            'background:#15D2FF','color:#003D58','border:none','border-radius:8px',
+            'padding:8px 16px','font-family:Montserrat,sans-serif',
+            'font-weight:700','font-size:12px','cursor:pointer',
+            'box-shadow:0 2px 8px rgba(0,0,0,.3)',
+            'display:flex','align-items:center','gap:6px','opacity:.85'
+        ].join(';');
+        btn.onmouseenter=()=>btn.style.opacity='1';
+        btn.onmouseleave=()=>btn.style.opacity='.85';
+        btn.onclick=()=>loadAndProcess(true);
+        document.body.appendChild(btn);
+    }
+    const lbl = ageMin!=null?' ('+ageMin+'min)':'';
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Atualizar dados'+lbl;
+}
+
+/* ══════════════════════════════════════════════════════
+   LOAD + PROCESS
+   ══════════════════════════════════════════════════════ */
+async function loadAndProcess(forceRefresh){
+    const errEl  = document.getElementById('loadingError');
+    const spinEl = document.getElementById('loadingSpinner');
+    if(errEl){ errEl.style.display='none'; errEl.innerHTML=''; }
+    if(spinEl) spinEl.style.display='';
+    showLoading(true);
+
+    /* ① Cache localStorage — exibe imediatamente, depois atualiza em segundo plano */
+    if(!forceRefresh){
+        const cached = lcLoad();
+        if(cached){
+            DATA           = cached.data;
+            MONTHS_DYNAMIC = cached.months||[];
+            showLoading(false);
+            initializeDashboard();
+            injectRefreshButton(lcAgeMin());
+            console.log('[Dashboard] pronto via cache local');
+            /* Atualiza em segundo plano (sem bloquear a UI) */
+            _refreshInBackground();
+            return;
+        }
+    }
+
+    /* ② Primeira carga (sem cache) — busca via gviz JSONP */
+    if(forceRefresh) lcClear();
+    await _fetchAndProcess();
+}
+
+async function _refreshInBackground(){
+    try{
+        await _fetchAndProcess(true);
+        console.log('[Dashboard] cache atualizado em segundo plano');
+    }catch(e){
+        console.warn('[Dashboard] atualização em segundo plano falhou:', e.message);
+    }
+}
+
+async function _fetchAndProcess(background){
+    if(!background){
+        setLoadingText('Conectando ao Google Sheets…');
+        showLoading(true);
+    }
+
+    try{
+        /* Carrega Bases pontos e Metas em paralelo.
+           Metas é opcional — se falhar, dashboard continua sem metas. */
+        setLoadingText && setLoadingText('Lendo planilhas…');
+        /* Metas é lida em paralelo; se falhar, o painel continua,
+           mas mostra o motivo na página de Horas Extras. */
+        const metasPromise = gviz('Metas', 'SELECT *')
+            .then(r => { METAS_ERROR = null; return r; })
+            .catch(e => { METAS_ERROR = e.message; return {cols:[],rows:[]}; });
+        const bases = await gviz('Bases pontos', BASES_SELECT);
+        const metas = await metasPromise;
+
+        /* Guarda para re-processar ao mudar período */
+        BASES_RESULT = bases;
+        METAS_RESULT = metas;
+
+        setLoadingText && setLoadingText('Processando…');
+        processRawData(bases, metas);
+        lcSave(DATA, MONTHS_DYNAMIC);
+
+        if(!background){
+            showLoading(false);
+            initializeDashboard();
+            injectRefreshButton(0);
+            console.log('[Dashboard] pronto');
+        } else {
+            /* Atualiza a UI sem mostrar overlay de loading */
+            initializeDashboard();
+            injectRefreshButton(0);
+        }
+    }catch(err){
+        if(!background){
+            showError('Erro ao carregar: '+err.message);
+        }
+        throw err;
+    }
+}
+
+/* ── processRawData ── */
+/* Aceita objetos {cols, rows} retornados pelo gviz() JSONP.
+   Com headers=1, table.rows NÃO inclui a linha de cabeçalho —
+   então usamos basesResult.rows diretamente (sem slice).
+   Para Metas, lemos os labels das colunas em metasResult.cols. */
+
+function processRawData(basesResult, metasResult){
+
+    const MONTH_ABBR_MAP = {
+        Jan:1,Fev:2,Mar:3,Abr:4,Mai:5,Jun:6,
+        Jul:7,Ago:8,Set:9,Out:10,Nov:11,Dez:12
+    };
+    const MONTH_ABBR = ['','Jan','Fev','Mar','Abr','Mai','Jun',
+                         'Jul','Ago','Set','Out','Nov','Dez'];
+
+    const P   = getPeriod();
+    const inP = d => d >= P.start && d <= P.end;
+    const dateKey = pt => { const p = String(pt).split('/'); return p.length===3 ? p[2]+p[1]+p[0] : String(pt); };
+
+    /* ── Metas (mesma leitura de antes) ── */
+    const metasCols = (metasResult && metasResult.cols) ? metasResult.cols : [];
+    const metasRows = (metasResult && metasResult.rows) ? metasResult.rows : [];
+    const metaMonthCols = [];
+    for(let c = 3; c < metasCols.length; c++){
+        const abbr = String(metasCols[c].label||'').trim();
+        if(MONTH_ABBR_MAP[abbr]) metaMonthCols.push({colIdx:c, monthNum:MONTH_ABBR_MAP[abbr]});
+    }
+    const gerenteMeta = {}, setorMeta = {};
+    metasRows.forEach(row=>{
+        if(!row || !row[0]) return;
+        const setor   = String(row[0]||'').trim();
+        if(setor.toLowerCase() === 'setor') return;
+        const gerente = String(row[2]||'').trim();
+        if(!setor && !gerente) return;
+        if(!gerenteMeta[gerente]) gerenteMeta[gerente] = {};
+        if(!setorMeta[setor])     setorMeta[setor]     = {};
+        metaMonthCols.forEach(({colIdx,monthNum})=>{
+            const raw = row[colIdx];
+            if(raw === null || raw === undefined || raw === '') return;
+            const v = parseFloat(String(raw).replace(',','.'));
+            if(isNaN(v)) return;            /* ignora a 2ª linha de cabeçalho ("Meta HE") */
+            gerenteMeta[gerente][monthNum] = (gerenteMeta[gerente][monthNum]||0) + v;
+            setorMeta[setor][monthNum]     = (setorMeta[setor][monthNum]||0)     + v;
+        });
+    });
+    DATA._metasStatus = METAS_ERROR
+        ? {ok:false, msg:'Não foi possível ler a aba Metas: ' + METAS_ERROR}
+        : !metasRows.length
+            ? {ok:false, msg:'A aba Metas veio vazia.'}
+            : !metaMonthCols.length
+                ? {ok:false, msg:'A aba Metas foi lida, mas nenhuma coluna de mês foi reconhecida (esperado: Jan, Fev, Mar… no cabeçalho).'}
+                : {ok:true, msg:'Metas carregadas: ' + Object.keys(setorMeta).filter(k=>k).length +
+                    ' setores · mês(es): ' + metaMonthCols.map(m=>MONTH_ABBR[m.monthNum]).join(', ')};
+
+    const companyMeta = {};
+    Object.values(gerenteMeta).forEach(gm=>{
+        Object.entries(gm).forEach(([mn,h])=>{ companyMeta[mn] = (companyMeta[mn]||0) + h; });
+    });
+
+    /* Texto que explica qual meta está sendo usada */
+    function describeMetaRule(){
+        const MN = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+        const pad = v => String(v).padStart(2,'0');
+        if(metaEnd < P.start) return 'Sem dados no período selecionado.';
+        const parts = [];
+        let y = P.start.getFullYear(), m = P.start.getMonth();
+        while(new Date(y,m,1) <= metaEnd){
+            const mStart = new Date(y,m,1), mEnd = new Date(y,m+1,0,23,59,59);
+            const a = P.start > mStart ? P.start : mStart;
+            const b = metaEnd < mEnd ? metaEnd : mEnd;
+            const days = Math.round((new Date(b.getFullYear(),b.getMonth(),b.getDate()) -
+                                     new Date(a.getFullYear(),a.getMonth(),a.getDate()))/86400000) + 1;
+            const dim = mEnd.getDate();
+            const has = companyMeta[m+1] !== undefined;
+            parts.push(MN[m] + ': ' + (!has ? 'sem meta cadastrada'
+                : days >= dim ? 'mês inteiro' : days + ' de ' + dim + ' dias'));
+            m++; if(m > 11){ m = 0; y++; }
+        }
+        let txt = 'Meta proporcional aos dias com dados — ' + parts.join(' · ');
+        if(metaEnd < P.end) txt += ' (base com dados até ' + pad(metaEnd.getDate()) + '/' + pad(metaEnd.getMonth()+1) + ')';
+        return txt;
+    }
+
+    /* REGRA DA META (definida pela diretoria):
+       meta mensal proporcional aos dias do período QUE TÊM DADOS na base.
+       Ex.: filtro 01 a 28/09 com dados até 20/09 → 20/30 da meta de setembro.
+       Vários meses: soma de cada mês (inteiro ou proporcional).
+       metaEnd é calculado depois de ler a base (último dia com registro). */
+    let metaEnd = P.end;
+    function periodMeta(byMonth){
+        if(!byMonth) return null;
+        if(metaEnd < P.start) return null;
+        let total = 0, found = false;
+        let y = P.start.getFullYear(), m = P.start.getMonth();
+        while(new Date(y,m,1) <= metaEnd){
+            const mStart = new Date(y,m,1), mEnd = new Date(y,m+1,0,23,59,59);
+            const a = P.start > mStart ? P.start : mStart;
+            const b = metaEnd < mEnd   ? metaEnd : mEnd;
+            const days = Math.round((new Date(b.getFullYear(),b.getMonth(),b.getDate()) -
+                                     new Date(a.getFullYear(),a.getMonth(),a.getDate()))/86400000) + 1;
+            const v = byMonth[m+1];
+            if(v !== undefined && v !== null){ total += v * days / mEnd.getDate(); found = true; }
+            m++; if(m > 11){ m = 0; y++; }
+        }
+        return found ? Math.round(total) : null;
+    }
+
+    /* ── Leitura das linhas ──
+       Índices após SELECT C,D,F,H,I,AB,AD,AF,AI,G,AL,AN,AP,AQ,AS,AH,AT:
+       0=Data 1=Crachá 2=Nome 3=Saída1 4=Entrada2 5=HETotal 6=HEFlag 7=AlmDur
+       8=HorárioSaída 9=Entrada1 10=FaltaInterjornada 11=MêsN° 12=Setor 13=Gerente 14=FaltaAlmoço(<1h) 15=ExcessoAlmoço planilha(>2h, não usado) 16=Empresa */
+    const dataRows = (basesResult && basesResult.rows) ? basesResult.rows : [];
+    let rows = [];
+    const monthKeys = new Set();
+    const seenIdx = new Map();   /* crachá|data → posição (para descartar importações repetidas) */
+    let dupCount = 0;
+    /* Gerente OFICIAL de cada setor = aba Metas (referência definida pela diretoria) */
+    const metaGerBySetor = {};
+    metasRows.forEach(row=>{
+        const st = String((row||[])[0]||'').trim(), g = String((row||[])[2]||'').trim();
+        if(st && g && st.toLowerCase() !== 'setor') metaGerBySetor[st] = g;
+    });
+
+    /* Gerente conhecido de cada setor (para completar linhas sem gerente) */
+    const knownGer = {};
+    dataRows.forEach(row=>{
+        const st = String(row[12]||'').trim(), g = String(row[13]||'').trim();
+        if(st && g && !knownGer[st]) knownGer[st] = g;
+    });
+    metasRows.forEach(row=>{
+        const st = String((row||[])[0]||'').trim(), g = String((row||[])[2]||'').trim();
+        if(st && g && !knownGer[st]) knownGer[st] = g;
+    });
+
+    const selCompany = document.getElementById('companyFilter').value;
+
+    dataRows.forEach(row=>{
+        const cracha   = String(row[1] ||'').trim().replace(/\.0+$/,'');
+        const name     = String(row[2] ||'').trim().replace(/\u201A/g,'Ç');
+        const empresa  = String(row[16]||'').trim() || 'Frigobet';
+        let setor      = String(row[12]||'').trim();
+        let gerente    = String(row[13]||'').trim();
+        if(!cracha) return;
+        if(selCompany !== 'Consolidado' && empresa !== selCompany) return;
+        if(setor && metaGerBySetor[setor]) gerente = metaGerBySetor[setor];
+        /* Colaborador ainda sem cadastro no DE-PARA: entra nos totais,
+           identificado como "Sem setor"/"Sem gerente" em vez de sumir */
+        if(!gerente) gerente = (setor && knownGer[setor]) ? knownGer[setor] : 'Sem gerente';
+        if(!setor)   setor   = 'Sem setor · ' + gerente;
+        const dateStr = String(row[0]||'').trim();
+        const dateObj = parseDateObj(dateStr);
+        if(isNaN(dateObj) || dateObj.getTime() === 0) return;
+        const ym = dateObj.getFullYear()*100 + dateObj.getMonth() + 1;
+        monthKeys.add(ym);
+        const dupKey = cracha + '|' + dateObj.getTime();
+        if(seenIdx.has(dupKey)){ rows[seenIdx.get(dupKey)] = null; dupCount++; }
+        seenIdx.set(dupKey, rows.length);
+        const heFlag = +row[6] || 0;
+        const lunchDur = parseTime(row[7]);
+        rows.push({
+            cracha, name, setor, gerente, dateObj, ym,
+            datePt: formatDateStr(dateStr),
+            heFlag,
+            heHours: heFlag ? parseTime(row[5]) : 0,
+            lunchLess: (+row[14] || 0) ? 1 : 0,
+            lunchMore: lunchDur > 1 + 1e-9 ? 1 : 0,   /* regra da diretoria: almoço acima de 1h00 (1h01 já conta) */
+            lunchDur,
+            lunchStart: String(row[3]||'').trim(),
+            lunchEnd:   String(row[4]||'').trim(),
+            exitStr:    String(row[8]||'').trim(),
+            entryStr:   String(row[9]||'').trim(),
+            alFlag: +row[10] || 0,
+            inPeriod: inP(dateObj)
+        });
+    });
+
+    rows = rows.filter(Boolean);
+
+    /* Último dia com registro na base */
+    let lastData = null;
+    rows.forEach(r=>{ if(!lastData || r.dateObj > lastData) lastData = r.dateObj; });
+    if(lastData){
+        const le = new Date(lastData.getFullYear(),lastData.getMonth(),lastData.getDate(),23,59,59);
+        metaEnd = le < P.end ? le : P.end;
+    }
+    if(dupCount) console.warn('[Dados] '+dupCount+' registros repetidos (mesmo crachá e data) foram ignorados.');
+    DATA._duplicates = dupCount;
+
+    const sortedMonths = Array.from(monthKeys).sort((a,b)=>a-b);
+    const years = new Set(sortedMonths.map(k=>Math.floor(k/100)));
+    MONTHS_DYNAMIC = sortedMonths.map(k =>
+        MONTH_ABBR[k%100] + (years.size > 1 ? '/' + String(Math.floor(k/100)).slice(2) : ''));
+
+    /* ── Acumuladores: mensais (histórico) e do período ── */
+    const execHE = {}, execInter = {}, execLunchLess = {}, execLunchMore = {};
+    sortedMonths.forEach(k=>{ execHE[k]=0; execInter[k]=0; execLunchLess[k]=0; execLunchMore[k]=0; });
+
+    const sectorGer = {};
+    const mgmtHE = {}, sectorHE = {};
+    const empHEData = {}, empLunchData = {};
+    const heEmp = new Set(), over2Emp = new Set();
+    let over2Occ = 0, totalHE = 0, lunchLessP = 0, lunchMoreP = 0;
+    const lunchEmp = new Set();
+    const empInterRows = {};
+
+    rows.forEach(r=>{
+        if(!sectorGer[r.setor]) sectorGer[r.setor] = r.gerente;
+
+        /* histórico mensal (gráficos de evolução) */
+        execHE[r.ym] += r.heHours;
+        execLunchLess[r.ym] += r.lunchLess;
+        execLunchMore[r.ym] += r.lunchMore;
+
+        (empInterRows[r.cracha] = empInterRows[r.cracha] || []).push(r);
+
+        if(!r.inPeriod) return;
+
+        /* período: HE */
+        totalHE += r.heHours;
+        mgmtHE[r.gerente] = (mgmtHE[r.gerente]||0) + r.heHours;
+        sectorHE[r.setor] = (sectorHE[r.setor]||0) + r.heHours;
+        if(r.heFlag){
+            heEmp.add(r.cracha);
+            if(r.heHours > 2){ over2Emp.add(r.cracha); over2Occ++; }
+            if(!empHEData[r.setor]) empHEData[r.setor] = {};
+            const e = empHEData[r.setor][r.cracha] =
+                empHEData[r.setor][r.cracha] || {name:r.name,heHours:0,heDays:0,maxDay:0,history:[]};
+            e.heHours += r.heHours; e.heDays++;
+            if(r.heHours > e.maxDay) e.maxDay = r.heHours;
+            e.history.push([r.datePt, Math.round(r.heHours*10)/10]);
+        }
+
+        /* período: almoço */
+        if(r.lunchLess || r.lunchMore){
+            lunchEmp.add(r.cracha);
+            lunchLessP += r.lunchLess; lunchMoreP += r.lunchMore;
+            if(!empLunchData[r.setor]) empLunchData[r.setor] = {};
+            const e = empLunchData[r.setor][r.cracha] =
+                empLunchData[r.setor][r.cracha] || {name:r.name,less:0,more:0,minDur:999,maxDur:0,history:[]};
+            if(r.lunchLess){ e.less++; if(r.lunchDur>0 && r.lunchDur<e.minDur) e.minDur=r.lunchDur; }
+            if(r.lunchMore){ e.more++; if(r.lunchDur>e.maxDur) e.maxDur=r.lunchDur; }
+            e.history.push({date:r.datePt,start:r.lunchStart,end:r.lunchEnd,
+                duration:r.lunchDur>0?formatDurationStr(r.lunchDur):'—',
+                type:r.lunchLess?'less':'more'});
+        }
+    });
+
+    /* ── Interjornada: saída do dia anterior → entrada do dia ── */
+    const empInterData = {};
+    const interEmp = new Set(), interDays = new Set();
+    let interOccP = 0, interMinP = 999;
+
+    Object.entries(empInterRows).forEach(([cracha,list])=>{
+        list.sort((a,b)=>a.dateObj-b.dateObj);
+        for(let i=0;i<list.length;i++){
+            const cur = list[i];
+            if(!cur.alFlag) continue;
+
+            execInter[cur.ym] = (execInter[cur.ym]||0) + 1;
+            if(!cur.inPeriod) continue;
+
+            /* Intervalo: saída do registro anterior → entrada do dia */
+            const prev = i > 0 ? list[i-1] : null;
+            let intv = null;
+            if(prev){
+                const dayDiff = Math.round((
+                    new Date(cur.dateObj.getFullYear(),cur.dateObj.getMonth(),cur.dateObj.getDate()) -
+                    new Date(prev.dateObj.getFullYear(),prev.dateObj.getMonth(),prev.dateObj.getDate())
+                )/86400000);
+                if(dayDiff >= 1 && dayDiff <= 3 && prev.exitStr && cur.entryStr){
+                    intv = dayDiff*24 + parseTime(cur.entryStr) - parseTime(prev.exitStr);
+                    if(intv < 0) intv += 24;
+                }
+            }
+
+            interOccP++;
+            interEmp.add(cracha);
+            interDays.add(cur.datePt);
+            if(intv !== null && intv < interMinP) interMinP = intv;
+
+            if(!empInterData[cur.setor]) empInterData[cur.setor] = {};
+            const e = empInterData[cur.setor][cracha] =
+                empInterData[cur.setor][cracha] ||
+                {name:cur.name,gerente:cur.gerente,occurrences:0,days:new Set(),minInterval:999,lastDate:'',history:[]};
+            e.occurrences++;
+            e.days.add(cur.datePt);
+            if(intv !== null && intv < e.minInterval) e.minInterval = intv;
+            if(!e.lastDate || dateKey(cur.datePt) > dateKey(e.lastDate)) e.lastDate = cur.datePt;
+            e.history.push({
+                date:cur.datePt,
+                exit:prev ? prev.datePt+' · '+(prev.exitStr||'—') : '—',
+                entry:cur.datePt+' · '+(cur.entryStr||'—'),
+                interval:intv !== null ? formatIntervalStr(intv) : '—'
+            });
+        }
+    });
+
+    /* ── Visões por gerência e setor (período) ── */
+    const mgmtHEList = Object.entries(mgmtHE)
+        .map(([name,h])=>({ name, hours:Math.round(h), target:periodMeta(gerenteMeta[name]) }))
+        .filter(m=>m.hours>0)
+        .sort((a,b)=>heWorstFirst(a,b));
+    const totalMgmtH = mgmtHEList.reduce((s,m)=>s+m.hours,0);
+    mgmtHEList.forEach(m=>{ m.share = totalMgmtH>0 ? Math.round((m.hours/totalMgmtH)*1000)/10 : 0; });
+
+    const sectorHEByMgmt = {};
+    Object.entries(sectorHE).forEach(([setor,h])=>{
+        const hours = Math.round(h);
+        if(!hours) return;
+        const g = sectorGer[setor];
+        (sectorHEByMgmt[g] = sectorHEByMgmt[g] || []).push({name:setor, hours, target:periodMeta(setorMeta[setor])});
+    });
+
+    const mgmtInterMap = {}, interSectorsByMgmt = {};
+    Object.entries(empInterData).forEach(([setor,emps])=>{
+        const g = sectorGer[setor] || '';
+        const m = mgmtInterMap[g] = mgmtInterMap[g] || {occurrences:0,empSet:new Set(),minInterval:999};
+        let occSetor = 0;
+        Object.entries(emps).forEach(([cracha,e])=>{
+            occSetor += e.occurrences;
+            m.occurrences += e.occurrences;
+            m.empSet.add(cracha);
+            if(e.minInterval < m.minInterval) m.minInterval = e.minInterval;
+        });
+        if(occSetor) (interSectorsByMgmt[g] = interSectorsByMgmt[g] || []).push({name:setor, occurrences:occSetor});
+    });
+
+    const mgmtLunchMap = {}, lunchSectorsByMgmt = {};
+    Object.entries(empLunchData).forEach(([setor,emps])=>{
+        const g = sectorGer[setor] || '';
+        const m = mgmtLunchMap[g] = mgmtLunchMap[g] || {less:0,more:0,empSet:new Set()};
+        let less = 0, more = 0;
+        Object.entries(emps).forEach(([cracha,e])=>{
+            less += e.less; more += e.more;
+            m.empSet.add(cracha);
+        });
+        m.less += less; m.more += more;
+        if(less || more) (lunchSectorsByMgmt[g] = lunchSectorsByMgmt[g] || []).push({name:setor, less, more});
+    });
+
+    const byDate = (a,b)=>dateKey(a).localeCompare(dateKey(b));
+
+    /* ── DATA ── */
+    DATA.executive = {
+        overtime:{
+            hours: sortedMonths.map(k=>Math.round(execHE[k]||0)),
+            money: [],
+            frigobetTarget: sortedMonths.map(k=>{
+                const t = companyMeta[k%100];
+                if(t === undefined || t === null) return null;
+                /* mês que ainda não terminou na base: proporcional aos dias com dados */
+                if(lastData && k === lastData.getFullYear()*100 + lastData.getMonth() + 1){
+                    const dim = new Date(lastData.getFullYear(), lastData.getMonth()+1, 0).getDate();
+                    return Math.round(t * lastData.getDate() / dim);
+                }
+                return Math.round(t);
+            })
+        },
+        interjourney: sortedMonths.map(k=>execInter[k]||0),
+        lunchLess:    sortedMonths.map(k=>execLunchLess[k]||0),
+        lunchMore:    sortedMonths.map(k=>execLunchMore[k]||0)
+    };
+
+    DATA.overtime = { managements:mgmtHEList, sectors:sectorHEByMgmt, employees:{} };
+    Object.entries(empHEData).forEach(([setor,emps])=>{
+        DATA.overtime.employees[setor] = Object.values(emps).map(e=>({
+            name:e.name,
+            hours:Math.round(e.heHours*10)/10,
+            days:e.heDays,
+            max:Math.round(e.maxDay*10)/10,
+            history:e.history.slice().sort((a,b)=>byDate(a[0],b[0]))
+        })).sort((a,b)=>b.hours-a.hours);
+    });
+
+    DATA.interjourney = {
+        managements: Object.entries(mgmtInterMap).map(([name,m])=>({
+            name,
+            employees:m.empSet.size,
+            occurrences:m.occurrences,
+            minimum:m.minInterval<999 ? formatIntervalStr(m.minInterval) : '—'
+        })).filter(m=>m.occurrences>0).sort((a,b)=>b.occurrences-a.occurrences),
+        sectors: interSectorsByMgmt,
+        employees:{}
+    };
+    Object.entries(empInterData).forEach(([setor,emps])=>{
+        DATA.interjourney.employees[setor] = Object.values(emps).map(e=>({
+            name:e.name,
+            occurrences:e.occurrences,
+            days:e.days.size,
+            minimum:e.minInterval<999 ? formatIntervalStr(e.minInterval) : '—',
+            last:e.lastDate || '—',
+            history:e.history.slice().sort((a,b)=>byDate(a.date,b.date))
+        })).sort((a,b)=>b.occurrences-a.occurrences);
+    });
+
+    DATA.lunch = {
+        managements: Object.entries(mgmtLunchMap).map(([name,m])=>({
+            name, employees:m.empSet.size, less:m.less, more:m.more
+        })).filter(m=>m.less+m.more>0).sort((a,b)=>(b.less+b.more)-(a.less+a.more)),
+        sectors: lunchSectorsByMgmt,
+        employees:{}
+    };
+    Object.entries(empLunchData).forEach(([setor,emps])=>{
+        DATA.lunch.employees[setor] = Object.values(emps).map(e=>({
+            name:e.name,
+            less:e.less,
+            more:e.more,
+            minimum:e.minDur<999 ? formatDurationStr(e.minDur) : '—',
+            maximum:e.maxDur>0 ? formatDurationStr(e.maxDur) : '—',
+            history:e.history.slice().sort((a,b)=>byDate(a.date,b.date))
+        })).sort((a,b)=>(b.less+b.more)-(a.less+a.more));
+    });
+
+    /* ── Cards (período) ── */
+    DATA._periodTarget        = periodMeta(companyMeta);
+    DATA._metaRule            = describeMetaRule();
+    DATA._totalHELastMn       = Math.round(totalHE);
+    DATA._heEmployees         = heEmp.size;
+    DATA._heOver2hCount       = over2Emp.size;
+    DATA._heOver2hOccurrences = over2Occ;
+    DATA._interEmployees      = interEmp.size;
+    DATA._interOccurrences    = interOccP;
+    DATA._interDays           = interDays.size;
+    DATA._interMin            = interMinP<999 ? formatIntervalStr(interMinP) : '—';
+    DATA._lunchEmployees      = lunchEmp.size;
+    DATA._lunchLess           = lunchLessP;
+    DATA._lunchMore           = lunchMoreP;
+}
+
+/* ── updateExecutiveCards ── */
+
+function updateExecutiveCards(){
+    const get = id => document.getElementById(id);
+
+    /* HE employees card (HE screen) */
+    const heEmpEl = get('executiveHEEmployees');
+    if(heEmpEl) heEmpEl.textContent =
+        DATA._heEmployees != null ? DATA._heEmployees : '—';
+
+    /* HE screen "HE Realizadas" card */
+    const heScreenEl = get('heScreenRealized');
+    if(heScreenEl) heScreenEl.textContent =
+        (DATA._totalHELastMn != null ? DATA._totalHELastMn : '—') + ' h';
+
+    /* HE Over2h — two cards: executive screen (execOver2h*) and HE screen (executiveHEOver2h*) */
+    ['execOver2h', 'executiveHEOver2h'].forEach(prefix => {
+        const val = get(prefix + 'Value');
+        const sec = get(prefix + 'Secondary');
+        if(val) val.textContent =
+            DATA._heOver2hCount != null ? DATA._heOver2hCount : '—';
+        if(sec) sec.textContent =
+            DATA._heOver2hOccurrences != null
+            ? DATA._heOver2hOccurrences + ' ocorrências'
+            : '— ocorrências';
+    });
+
+    /* Inter executive card */
+    const interEmpEl = get('execInterEmployees');
+    const interOccEl = get('execInterOccurrences');
+    if(interEmpEl) interEmpEl.textContent =
+        DATA._interEmployees != null ? DATA._interEmployees : '—';
+    if(interOccEl) interOccEl.textContent =
+        DATA._interOccurrences != null
+        ? DATA._interOccurrences + ' ocorrências'
+        : '— ocorrências';
+
+    /* Lunch executive card */
+    const lunchEmpEl = get('execLunchEmployees');
+    const lunchDetEl = get('execLunchDetail');
+    if(lunchEmpEl) lunchEmpEl.textContent =
+        DATA._lunchEmployees != null ? DATA._lunchEmployees : '—';
+    if(lunchDetEl) lunchDetEl.textContent =
+        DATA._lunchLess != null
+        ? DATA._lunchLess + ' <1h · ' + (DATA._lunchMore || 0) + ' >1h'
+        : '— <1h · — >1h';
+
+    /* Top HE management card (HE screen) */
+    /* Maior concentração = gerência com mais horas (independe da ordenação da tabela) */
+    const top = (DATA.overtime.managements || []).slice().sort((a,b)=>b.hours-a.hours)[0];
+    const topVal   = get('executiveMgmtTopValue');
+    const topShare = get('executiveMgmtTopShare');
+    if(top){
+        if(topVal)   topVal.textContent   = top.name;
+        if(topShare) topShare.textContent =
+            top.share.toFixed(1).replace('.',',') + ' % das HE';
+    }else{
+        if(topVal)   topVal.textContent   = '—';
+        if(topShare) topShare.textContent = '—% das HE';
+    }
+
+    /* Meta geral no card principal da página de Horas Extras */
+    {
+        const card = get('heScreenCard'), blk = get('heScreenTargetBlock');
+        const target = DATA._periodTarget, real = DATA._totalHELastMn || 0;
+        card.classList.remove('green','yellow','red','petroleum');
+        if(target === null || target === undefined){
+            blk.style.display = 'none'; card.classList.add('petroleum');
+        }else{
+            const st = targetStatus(real, target);
+            const dev = real - target;
+            blk.style.display = 'block';
+            get('heScreenTarget').textContent = target.toLocaleString('pt-BR') + ' h';
+            const dEl = get('heScreenDeviation');
+            dEl.textContent = (dev>0?'+':'') + dev.toLocaleString('pt-BR') + ' h';
+            dEl.className = st ? st.className : '';
+            get('heScreenAttainment').textContent =
+                (st && st.attainment !== null) ? formatPercent(st.attainment) : '—';
+            get('heScreenRule').textContent = DATA._metaRule || '';
+            card.classList.add(st ? st.className : 'petroleum');
+        }
+    }
+
+    /* Status das metas (página de Horas Extras) */
+    const ms = get('heMetasStatus');
+    if(ms){
+        const st = DATA._metasStatus;
+        if(st){
+            ms.textContent = (st.ok ? '✓ ' : '⚠ ') + st.msg;
+            ms.style.color = st.ok ? 'var(--green-dark)' : 'var(--red-dark)';
+            ms.style.fontWeight = st.ok ? '500' : '700';
+        }else{
+            ms.textContent = '';
+        }
+    }
+
+    /* Tela Interjornada */
+    const setTxt = (id,v) => { const el = get(id); if(el) el.textContent = v; };
+    setTxt('interCardOcc',  DATA._interOccurrences ?? '—');
+    setTxt('interCardEmp',  DATA._interEmployees ?? '—');
+    setTxt('interCardDays', DATA._interDays ?? '—');
+    setTxt('interCardMin',  DATA._interMin ?? '—');
+
+    /* Tela Almoço */
+    const less = DATA._lunchLess || 0, more = DATA._lunchMore || 0, tot = less + more;
+    const pct = v => tot ? (v/tot*100).toFixed(1).replace('.',',') + '% do total' : '—';
+    setTxt('lunchCardTotal', tot);
+    setTxt('lunchCardEmp',   DATA._lunchEmployees ?? '—');
+    setTxt('lunchCardLess',  less);
+    setTxt('lunchCardLessPct', pct(less));
+    setTxt('lunchCardMore',  more);
+    setTxt('lunchCardMorePct', pct(more));
+}
+
+
+/* ── Carga inicial (no final, para todas as constantes já existirem) ── */
+if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(()=>loadAndProcess()).catch(()=>loadAndProcess());
+}else{
+    loadAndProcess();
+}
+</script>
+
+</body>
+</html>
