@@ -4532,7 +4532,11 @@ function getPeriod(){
         startStr:st, endStr:en
     };
 }
-function periodKey(){ const p = getPeriod(); return p.startStr+'|'+p.endStr; }
+function periodKey(){
+    const p  = getPeriod();
+    const co = (document.getElementById('companyFilter')||{}).value || 'Consolidado';
+    return p.startStr+'|'+p.endStr+'|'+co;
+}
 function initPeriodDefaults(){
     const today = todayISO();
     document.getElementById('dateStart').value = today.slice(0,8)+'01';
@@ -4695,7 +4699,7 @@ function showError(msg){
    ══════════════════════════════════════════════════════ */
 
 /* Cache em localStorage (TTL 6h) para evitar re-leitura */
-const LC_KEY = 'aquila_dc_v10';
+const LC_KEY = 'aquila_dc_v11';
 const LC_TTL = 6 * 60 * 60 * 1000;
 
 function lcSave(data, months){
@@ -5459,7 +5463,7 @@ if(document.fonts && document.fonts.ready){
 </script>
 
 <!-- versão do painel -->
-<div id="versionTag" style="position:fixed;bottom:6px;right:10px;font-size:10px;color:rgba(150,150,150,0.45);pointer-events:none;z-index:9999;letter-spacing:.3px;">v1.2 · 29/09/2026</div>
+<div id="versionTag" style="position:fixed;bottom:6px;right:10px;font-size:10px;color:rgba(150,150,150,0.45);pointer-events:none;z-index:9999;letter-spacing:.3px;">v1.3 · 29/09/2026</div>
 
 </body>
 </html>
